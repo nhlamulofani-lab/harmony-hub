@@ -1,144 +1,82 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Award, BookOpen, GraduationCap, TrendingUp } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Award, BookOpen, Clock3, Flame, GraduationCap, Plus } from "lucide-react";
+import { jsPDF } from "jspdf";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
+import { calculateStreak, logPractice } from "@/lib/learning-tracker";
 import { instruments, levels, getModules, type Level } from "@/lib/site-data";
+import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — NFS Music Academy" }, { name: "robots", content: "noindex" }] }),
-  component: Dashboard,
-});
-
+export const Route = createFileRoute("/_authenticated/dashboard")({ component: Dashboard });
 type ProgressRow = { instrument_slug: string; level: string; module_id: string };
+type PracticeRow = { instrument_slug: string; duration_minutes: number; practiced_on: string; notes: string | null };
+type AttemptRow = { score: number };
 
 function Dashboard() {
   const { user } = useAuth();
-  const name = (user?.user_metadata?.full_name as string) || user?.email?.split("@")[0] || "musician";
-  const [rows, setRows] = useState<ProgressRow[]>([]);
+  const name = (user?.user_metadata?.full_name as string) || user?.email?.split("@")[0] || "Musician";
+  const [progressRows, setProgressRows] = useState<ProgressRow[]>([]);
+  const [practice, setPractice] = useState<PracticeRow[]>([]);
+  const [attempts, setAttempts] = useState<AttemptRow[]>([]);
+  const [instrument, setInstrument] = useState("piano");
+  const [minutes, setMinutes] = useState(30);
+  const [practiceNote, setPracticeNote] = useState("");
 
-  useEffect(() => {
+  const load = async () => {
     if (!user) return;
-    let cancelled = false;
-    const load = async () => {
-      const { data } = await supabase
-        .from("lesson_progress")
-        .select("instrument_slug, level, module_id")
-        .eq("user_id", user.id);
-      if (!cancelled) setRows((data ?? []) as ProgressRow[]);
-    };
-    load();
-    const channel = supabase
-      .channel(`dash-${user.id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "lesson_progress", filter: `user_id=eq.${user.id}` }, () => load())
-      .subscribe();
-    return () => { cancelled = true; supabase.removeChannel(channel); };
-  }, [user]);
+    const [progress, sessions, quiz] = await Promise.all([
+      supabase.from("lesson_progress").select("instrument_slug,level,module_id").eq("user_id", user.id),
+      supabase.from("practice_sessions").select("instrument_slug,duration_minutes,practiced_on,notes").eq("user_id", user.id).order("practiced_on", { ascending: false }),
+      supabase.from("quiz_attempts").select("score").eq("user_id", user.id),
+    ]);
+    setProgressRows((progress.data ?? []) as ProgressRow[]);
+    setPractice((sessions.data ?? []) as PracticeRow[]);
+    setAttempts((quiz.data ?? []) as AttemptRow[]);
+  };
+  useEffect(() => { load(); }, [user]);
 
-  // Build per-instrument progress
-  const perInstrument = instruments.map((inst) => {
-    const perLevel = levels.map((l) => {
-      const total = getModules(inst.name, l.key).length;
-      const done = rows.filter((r) => r.instrument_slug === inst.slug && r.level === l.key).length;
-      return { level: l.key, label: l.label, total, done, pct: total ? Math.round((done / total) * 100) : 0 };
-    });
-    const totalAll = perLevel.reduce((s, l) => s + l.total, 0);
-    const doneAll = perLevel.reduce((s, l) => s + l.done, 0);
-    const overall = totalAll ? Math.round((doneAll / totalAll) * 100) : 0;
-    return { inst, perLevel, overall, doneAll, totalAll };
-  });
+  const courses = useMemo(() => instruments.map((inst) => {
+    const perLevel = levels.map((item) => { const total = getModules(inst.name, item.key, inst.slug).length; const done = progressRows.filter((row) => row.instrument_slug === inst.slug && row.level === item.key).length; return { ...item, total, done, percent: Math.round(done / total * 100) }; });
+    const done = perLevel.reduce((sum, item) => sum + item.done, 0);
+    return { inst, perLevel, done, percent: Math.round(done / 30 * 100) };
+  }), [progressRows]);
+  const active = courses.filter((course) => course.done > 0);
+  const today = new Date();
+  const startWeek = new Date(today); startWeek.setDate(today.getDate() - 6);
+  const startMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const weekly = practice.filter((item) => new Date(item.practiced_on) >= startWeek).reduce((sum, item) => sum + item.duration_minutes, 0);
+  const monthly = practice.filter((item) => new Date(item.practiced_on) >= startMonth).reduce((sum, item) => sum + item.duration_minutes, 0);
+  const averageQuiz = attempts.length ? Math.round(attempts.reduce((sum, item) => sum + item.score, 0) / attempts.length) : 0;
+  const certificates = courses.flatMap((course) => course.perLevel.filter((item) => item.percent === 100).map((item) => ({ instrument: course.inst, level: item.label })));
 
-  const active = perInstrument.filter((p) => p.doneAll > 0);
-  const myCourses = active.length ? active : perInstrument.slice(0, 3);
-  const lessonsDone = rows.length;
-  const certificates = perInstrument.flatMap((p) => p.perLevel.filter((l) => l.pct === 100).map((l) => ({ inst: p.inst, level: l.label })));
+  const downloadCertificate = (instrumentName: string, level: string) => {
+    const pdf = new jsPDF({ orientation: "landscape" });
+    pdf.setDrawColor(35, 105, 87); pdf.setLineWidth(2); pdf.rect(12, 12, 273, 186);
+    pdf.setFont("helvetica", "bold"); pdf.setFontSize(28); pdf.text("NFS MUSIC ACADEMY", 148, 50, { align: "center" });
+    pdf.setFontSize(18); pdf.text("Certificate of Achievement", 148, 72, { align: "center" });
+    pdf.setFont("helvetica", "normal"); pdf.setFontSize(14); pdf.text("This certificate is proudly presented to", 148, 94, { align: "center" });
+    pdf.setFont("helvetica", "bold"); pdf.setFontSize(24); pdf.text(name, 148, 114, { align: "center" });
+    pdf.setFontSize(15); pdf.text(`for completing ${instrumentName} — ${level}`, 148, 137, { align: "center" });
+    pdf.setFont("helvetica", "normal"); pdf.text(new Date().toLocaleDateString(), 148, 162, { align: "center" });
+    pdf.save(`${instrumentName}-${level}-certificate.pdf`);
+  };
 
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-sm font-medium text-brand">Welcome back</p>
-          <h1 className="mt-1 font-display text-3xl font-bold tracking-tight sm:text-4xl">Hi, {name} 👋</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Your progress updates in real time as you complete modules.</p>
-        </div>
-        <div className="flex gap-2">
-          <Button asChild variant="outline" className="rounded-full"><Link to="/profile">Profile</Link></Button>
-          <Button variant="outline" className="rounded-full" onClick={() => supabase.auth.signOut().then(() => { window.location.href = "/"; })}>Logout</Button>
-        </div>
-      </div>
+  return <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header><p className="font-medium text-brand">Welcome back</p><h1 className="font-display text-4xl font-bold">Hi, {name}</h1><p className="mt-2 text-muted-foreground">Keep your learning and practice moving forward.</p></header>
+    <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[
+      { icon: BookOpen, label: "Lessons complete", value: progressRows.length }, { icon: Clock3, label: "Weekly practice", value: `${weekly} min` }, { icon: Flame, label: "Practice streak", value: `${calculateStreak(practice.map((item) => item.practiced_on))} days` }, { icon: GraduationCap, label: "Average quiz", value: `${averageQuiz}%` },
+    ].map((stat) => <div className="rounded-2xl border bg-card p-5" key={stat.label}><stat.icon className="size-5 text-brand" /><strong className="mt-3 block text-2xl">{stat.value}</strong><span className="text-sm text-muted-foreground">{stat.label}</span></div>)}</section>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { icon: BookOpen, label: "Active courses", value: String(active.length) },
-          { icon: TrendingUp, label: "Modules done", value: String(lessonsDone) },
-          { icon: Award, label: "Certificates", value: String(certificates.length) },
-          { icon: GraduationCap, label: "Instruments started", value: String(active.length) },
-        ].map((s) => (
-          <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
-            <s.icon className="h-5 w-5 text-brand" />
-            <div className="mt-3 font-display text-2xl font-bold">{s.value}</div>
-            <div className="text-sm text-muted-foreground">{s.label}</div>
-          </div>
-        ))}
-      </div>
+    <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
+      <section><div className="flex items-center justify-between"><h2 className="font-display text-2xl font-bold">Learning progress</h2><Button asChild variant="outline"><Link to="/courses">Browse courses</Link></Button></div><div className="mt-5 flex flex-col gap-4">{(active.length ? active : courses.slice(0, 3)).map((course) => { const resume = (course.perLevel.find((item) => item.percent < 100)?.key ?? "advanced") as Level; return <article className="flex flex-col gap-4 rounded-2xl border bg-card p-5 sm:flex-row sm:items-center" key={course.inst.slug}><img src={course.inst.image} alt={course.inst.name} className="size-20 rounded-xl object-cover" /><div className="flex-1"><div className="flex justify-between"><h3 className="font-bold">{course.inst.name}</h3><span>{course.percent}% overall</span></div><Progress className="mt-2" value={course.percent} /><div className="mt-2 flex flex-wrap gap-2 text-xs">{course.perLevel.map((item) => <span key={item.key} className="rounded-full bg-secondary px-2 py-1">{item.label}: {item.percent}%</span>)}</div></div><Button asChild><Link to="/courses/$instrument/$level" params={{ instrument: course.inst.slug, level: resume }}>{course.done ? "Resume" : "Start"}</Link></Button></article>; })}</div></section>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
-        <section>
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-xl font-semibold">My courses</h2>
-            <Button asChild variant="ghost" className="rounded-full"><Link to="/courses">Browse all</Link></Button>
-          </div>
-          <div className="mt-4 space-y-4">
-            {myCourses.map((c) => {
-              // find level with in-progress activity (any done but not 100) else lowest
-              const resumeLevel = (c.perLevel.find((l) => l.done > 0 && l.pct < 100)?.level
-                ?? c.perLevel.find((l) => l.pct < 100)?.level
-                ?? "beginner") as Level;
-              return (
-                <div key={c.inst.slug} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
-                  <img src={c.inst.image} alt={c.inst.name} className="h-20 w-20 shrink-0 rounded-xl object-cover" />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="font-display font-semibold">{c.inst.name}</h3>
-                      <span className="text-xs text-muted-foreground">{c.overall}% overall</span>
-                    </div>
-                    <Progress value={c.overall} className="mt-2" />
-                    <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                      {c.perLevel.map((l) => (
-                        <span key={l.level} className="rounded-full bg-secondary px-2 py-0.5">{l.label}: {l.pct}%</span>
-                      ))}
-                    </div>
-                  </div>
-                  <Button asChild size="sm" className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
-                    <Link to="/courses/$instrument/$level" params={{ instrument: c.inst.slug, level: resumeLevel }}>{c.doneAll ? "Resume" : "Start"}</Link>
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="font-display text-xl font-semibold">Certificates</h2>
-          {certificates.length ? (
-            <div className="mt-4 space-y-3">
-              {certificates.map((c, i) => (
-                <div key={i} className="rounded-2xl border border-border bg-card p-5 text-center">
-                  <Award className="mx-auto h-8 w-8 text-brand" />
-                  <p className="mt-2 font-medium">{c.inst.name} · {c.level}</p>
-                  <p className="text-xs text-muted-foreground">Level complete</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-4 rounded-2xl border border-dashed border-border bg-card p-6 text-center text-sm text-muted-foreground">
-              Complete all 5 modules of any level to earn your first certificate.
-            </div>
-          )}
-        </section>
-      </div>
+      <aside className="flex flex-col gap-6"><section className="rounded-2xl border bg-card p-6"><h2 className="font-display text-xl font-bold">Log practice</h2><div className="mt-4 flex flex-col gap-3"><label className="text-sm font-medium">Instrument<select className="mt-1 h-10 w-full rounded-md border bg-background px-3" value={instrument} onChange={(event) => setInstrument(event.target.value)}>{instruments.map((item) => <option value={item.slug} key={item.slug}>{item.name}</option>)}</select></label><label className="text-sm font-medium">Minutes<Input className="mt-1" type="number" min={1} max={1440} value={minutes} onChange={(event) => setMinutes(Number(event.target.value))} /></label><Textarea placeholder="What did you work on?" value={practiceNote} onChange={(event) => setPracticeNote(event.target.value)} /><Button onClick={async () => { if (!user) return; await logPractice(user.id, instrument, minutes, new Date().toISOString().slice(0, 10), practiceNote); setPracticeNote(""); await load(); toast.success("Practice logged"); }}><Plus data-icon="inline-start" />Add session</Button></div><div className="mt-5 grid grid-cols-2 gap-3 text-center"><div className="rounded-xl bg-secondary p-3"><strong className="block">{weekly}</strong><span className="text-xs">This week</span></div><div className="rounded-xl bg-secondary p-3"><strong className="block">{monthly}</strong><span className="text-xs">This month</span></div></div></section>
+      <section className="rounded-2xl border bg-card p-6"><h2 className="font-display text-xl font-bold">Certificates</h2><div className="mt-4 flex flex-col gap-3">{certificates.length ? certificates.map((certificate) => <div key={`${certificate.instrument.slug}-${certificate.level}`} className="rounded-xl border p-4"><Award className="size-6 text-brand" /><p className="mt-2 font-semibold">{certificate.instrument.name} · {certificate.level}</p><Button className="mt-3" size="sm" variant="outline" onClick={() => downloadCertificate(certificate.instrument.name, certificate.level)}>Download PDF</Button></div>) : <p className="text-sm text-muted-foreground">Complete all 10 lessons in a level to unlock a downloadable certificate.</p>}</div></section></aside>
     </div>
-  );
+  </main>;
 }
