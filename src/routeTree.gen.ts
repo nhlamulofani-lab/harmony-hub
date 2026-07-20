@@ -9,38 +9,146 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as InstrumentsRouteImport } from './routes/instruments'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InstrumentsSlugRouteImport } from './routes/instruments.$slug'
+import { Route as CoursesInstrumentLevelRouteImport } from './routes/courses.$instrument.$level'
 
+const InstrumentsRoute = InstrumentsRouteImport.update({
+  id: '/instruments',
+  path: '/instruments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstrumentsSlugRoute = InstrumentsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => InstrumentsRoute,
+} as any)
+const CoursesInstrumentLevelRoute = CoursesInstrumentLevelRouteImport.update({
+  id: '/$instrument/$level',
+  path: '/$instrument/$level',
+  getParentRoute: () => CoursesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/instruments': typeof InstrumentsRouteWithChildren
+  '/instruments/$slug': typeof InstrumentsSlugRoute
+  '/courses/$instrument/$level': typeof CoursesInstrumentLevelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/instruments': typeof InstrumentsRouteWithChildren
+  '/instruments/$slug': typeof InstrumentsSlugRoute
+  '/courses/$instrument/$level': typeof CoursesInstrumentLevelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRouteWithChildren
+  '/instruments': typeof InstrumentsRouteWithChildren
+  '/instruments/$slug': typeof InstrumentsSlugRoute
+  '/courses/$instrument/$level': typeof CoursesInstrumentLevelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/courses'
+    | '/instruments'
+    | '/instruments/$slug'
+    | '/courses/$instrument/$level'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/courses'
+    | '/instruments'
+    | '/instruments/$slug'
+    | '/courses/$instrument/$level'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/courses'
+    | '/instruments'
+    | '/instruments/$slug'
+    | '/courses/$instrument/$level'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  CoursesRoute: typeof CoursesRouteWithChildren
+  InstrumentsRoute: typeof InstrumentsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/instruments': {
+      id: '/instruments'
+      path: '/instruments'
+      fullPath: '/instruments'
+      preLoaderRoute: typeof InstrumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +156,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instruments/$slug': {
+      id: '/instruments/$slug'
+      path: '/$slug'
+      fullPath: '/instruments/$slug'
+      preLoaderRoute: typeof InstrumentsSlugRouteImport
+      parentRoute: typeof InstrumentsRoute
+    }
+    '/courses/$instrument/$level': {
+      id: '/courses/$instrument/$level'
+      path: '/$instrument/$level'
+      fullPath: '/courses/$instrument/$level'
+      preLoaderRoute: typeof CoursesInstrumentLevelRouteImport
+      parentRoute: typeof CoursesRoute
+    }
   }
 }
 
+interface CoursesRouteChildren {
+  CoursesInstrumentLevelRoute: typeof CoursesInstrumentLevelRoute
+}
+
+const CoursesRouteChildren: CoursesRouteChildren = {
+  CoursesInstrumentLevelRoute: CoursesInstrumentLevelRoute,
+}
+
+const CoursesRouteWithChildren =
+  CoursesRoute._addFileChildren(CoursesRouteChildren)
+
+interface InstrumentsRouteChildren {
+  InstrumentsSlugRoute: typeof InstrumentsSlugRoute
+}
+
+const InstrumentsRouteChildren: InstrumentsRouteChildren = {
+  InstrumentsSlugRoute: InstrumentsSlugRoute,
+}
+
+const InstrumentsRouteWithChildren = InstrumentsRoute._addFileChildren(
+  InstrumentsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  CoursesRoute: CoursesRouteWithChildren,
+  InstrumentsRoute: InstrumentsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
