@@ -6,17 +6,12 @@ import keyboard from "@/assets/inst-keyboard.jpg";
 import bass from "@/assets/inst-bass.jpg";
 import sax from "@/assets/inst-sax.jpg";
 import trumpet from "@/assets/inst-trumpet.jpg";
+import { getLessons, type Lesson } from "@/lib/curriculum";
 
 export type Level = "beginner" | "intermediate" | "advanced";
 
-export type Module = {
-  id: string;
-  title: string;
-  theory: string;
-  keyPoints: string[];
-  exercise: string;
-  visual: string; // short visual/theory diagram label (rendered as decorative block)
-};
+export type Module = Lesson;
+type LegacyModule = { id: string; title: string; theory: string; keyPoints: string[]; exercise: string; visual: string };
 
 export type Instrument = {
   slug: string;
@@ -117,6 +112,55 @@ export const instruments: Instrument[] = [
     whatYouLearn: ["Buzzing & embouchure", "Fingering the valves", "First 5 notes", "Long tones for a beautiful sound", "Simple songs", "Playing in tune with others"],
     image: trumpet,
   },
+  {
+    slug: "ukulele", name: "Ukulele", image: guitar,
+    description: "Bright chords, relaxed strumming and joyful songs in a friendly four-string path.",
+    longDescription: "The ukulele is welcoming, portable and musical from the first lesson. Build rhythm, chord confidence and melody skills across pop, folk and island styles.",
+    history: "Developed in Hawaii in the late nineteenth century from Portuguese instruments, the ukulele became a worldwide symbol of accessible music-making.",
+    whatYouLearn: ["Tuning and care", "Open chords", "Strumming patterns", "Chord transitions", "Fingerpicking", "Complete songs"],
+  },
+  {
+    slug: "recorder", name: "Recorder", image: sax,
+    description: "Develop breath, fingering and music-reading through a clear woodwind foundation.",
+    longDescription: "The recorder rewards careful air and precise fingers. It is an ideal route into melody, ensemble playing and woodwind musicianship.",
+    history: "Recorders flourished from the medieval era through the Baroque and remain important teaching and performance instruments today.",
+    whatYouLearn: ["Breath control", "Clean tonguing", "Fingering charts", "Reading treble clef", "Scales", "Ensemble playing"],
+  },
+  {
+    slug: "flute", name: "Flute", image: sax,
+    description: "Create a focused tone, flowing breath and agile melodic technique.",
+    longDescription: "The flute combines singing tone with remarkable agility across orchestral, jazz, folk and contemporary music.",
+    history: "Flutes are among humanity's oldest instruments; the modern concert flute was transformed by Theobald Boehm's nineteenth-century key system.",
+    whatYouLearn: ["Assembly and care", "Embouchure", "Breath support", "Fingerings", "Articulation", "Expressive repertoire"],
+  },
+  {
+    slug: "cello", name: "Cello", image: violin,
+    description: "Build resonant tone, secure intonation and expressive bow control.",
+    longDescription: "With a range close to the human voice, the cello can carry bass lines, lyrical melodies and rich ensemble textures.",
+    history: "The cello emerged in sixteenth-century Italy and became central to chamber, orchestral and solo music.",
+    whatYouLearn: ["Instrument setup", "Bow hold", "First position", "Intonation", "Shifting", "Solo performance"],
+  },
+  {
+    slug: "singing", name: "Singing", image: trumpet,
+    description: "Train your natural instrument with healthy technique, pitch and confident expression.",
+    longDescription: "Singing combines breath, body, ear and storytelling. Learn sustainable technique while developing your own recognisable voice.",
+    history: "The voice is humanity's first instrument and sits at the centre of musical traditions in every culture.",
+    whatYouLearn: ["Breath support", "Pitch matching", "Healthy registers", "Vowels and diction", "Harmony", "Stage communication"],
+  },
+  {
+    slug: "music-production", name: "Music Production", image: keyboard,
+    description: "Turn musical ideas into finished recordings with practical studio workflow.",
+    longDescription: "Music production brings composition, technology and critical listening together. Build tracks from first session to polished release.",
+    history: "Recording evolved from acoustic cylinders to multitrack tape and today's digital audio workstations, making the studio an instrument itself.",
+    whatYouLearn: ["DAW workflow", "MIDI and audio", "Arrangement", "Sound selection", "Mixing", "Release preparation"],
+  },
+  {
+    slug: "music-theory", name: "Music Theory", image: piano,
+    description: "Understand the language behind rhythm, melody, harmony and composition.",
+    longDescription: "Music theory gives names and patterns to what you hear, helping you learn faster, communicate clearly and create with intention.",
+    history: "Musicians across cultures have developed systems to describe pitch, rhythm and form. This course connects modern notation with practical listening.",
+    whatYouLearn: ["Notation and rhythm", "Scales and intervals", "Chords and harmony", "Ear training", "Analysis", "Composition"],
+  },
 ];
 
 export const levels: { key: Level; label: string; blurb: string }[] = [
@@ -131,7 +175,7 @@ export function getInstrument(slug: string) {
 
 /** 5 ordered modules per level. Structure is universal; instrument name is injected. */
 function buildModules(instrumentName: string, level: Level): Module[] {
-  const templates: Record<Level, Omit<Module, "theory" | "exercise">[]> = {
+  const templates: Record<Level, Omit<LegacyModule, "theory" | "exercise">[]> = {
     beginner: [
       {
         id: "m1",
@@ -285,6 +329,7 @@ function buildModules(instrumentName: string, level: Level): Module[] {
   }));
 }
 
-export function getModules(instrumentName: string, level: Level) {
-  return buildModules(instrumentName, level);
+export function getModules(instrumentName: string, level: Level, slug?: string): Module[] {
+  const course = slug ? getInstrument(slug) : instruments.find((item) => item.name === instrumentName);
+  return getLessons(course?.slug ?? instrumentName.toLowerCase().replaceAll(" ", "-"), instrumentName, level);
 }
