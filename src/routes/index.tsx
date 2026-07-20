@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, PlayCircle, Sparkles, GraduationCap, Music2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { instruments } from "@/lib/site-data";
-import hero from "@/assets/hero-piano.jpg";
+import hero from "@/assets/hero-instruments.jpg";
 
 export const Route = createFileRoute("/")({
   component: Home,
