@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, PlayCircle, Sparkles, GraduationCap, Music2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { instruments } from "@/lib/site-data";
-import hero from "@/assets/hero-piano.jpg";
+import hero from "@/assets/hero-instruments.jpg";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -40,7 +40,7 @@ function Home() {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-brand/30 via-transparent to-brand/10 blur-2xl" />
-            <img src={hero} alt="Student playing piano" width={1600} height={1100} className="aspect-[4/5] w-full rounded-3xl object-cover shadow-2xl" />
+            <img src={hero} alt="Musical instruments arrangement" width={1200} height={1400} className="aspect-[4/5] w-full rounded-3xl object-cover shadow-2xl" />
           </div>
         </div>
       </section>

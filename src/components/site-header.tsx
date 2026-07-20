@@ -43,7 +43,7 @@ export function SiteHeader() {
           {user ? (
             <>
               <Button asChild variant="ghost" size="sm"><Link to="/dashboard">Dashboard</Link></Button>
-              <Button size="sm" variant="outline" onClick={() => supabase.auth.signOut()}>Log out</Button>
+              <Button size="sm" variant="outline" onClick={() => supabase.auth.signOut().then(() => { window.location.href = "/"; })}>Log out</Button>
             </>
           ) : (
             <>
@@ -66,7 +66,7 @@ export function SiteHeader() {
               {user ? (
                 <>
                   <Button asChild variant="outline" size="sm" onClick={() => setOpen(false)}><Link to="/dashboard">Dashboard</Link></Button>
-                  <Button size="sm" variant="outline" onClick={() => { supabase.auth.signOut(); setOpen(false); }}>Log out</Button>
+                  <Button size="sm" variant="outline" onClick={() => { supabase.auth.signOut().then(() => { window.location.href = "/"; }); setOpen(false); }}>Log out</Button>
                 </>
               ) : (
                 <>
