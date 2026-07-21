@@ -41,6 +41,39 @@ export type Database = {
         }
         Relationships: []
       }
+      practice_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          instrument_slug: string
+          lesson_id: string | null
+          level: string
+          minutes: number
+          session_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          instrument_slug: string
+          lesson_id?: string | null
+          level: string
+          minutes: number
+          session_date?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          instrument_slug?: string
+          lesson_id?: string | null
+          level?: string
+          minutes?: number
+          session_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -62,6 +95,39 @@ export type Database = {
           full_name?: string | null
           id?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      quiz_attempts: {
+        Row: {
+          created_at: string
+          id: string
+          instrument_slug: string
+          lesson_id: string
+          level: string
+          passed: boolean
+          score_pct: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          instrument_slug: string
+          lesson_id: string
+          level: string
+          passed: boolean
+          score_pct: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          instrument_slug?: string
+          lesson_id?: string
+          level?: string
+          passed?: boolean
+          score_pct?: number
+          user_id?: string
         }
         Relationships: []
       }
