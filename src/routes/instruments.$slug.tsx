@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, Check, Music2, Sparkles, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getInstrument, getModules, levels } from "@/lib/site-data";
+import { getInstrument, getLessons, levels, LESSONS_PER_LEVEL } from "@/lib/site-data";
 
 export const Route = createFileRoute("/instruments/$slug")({
   loader: ({ params }) => {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/instruments/$slug")({
 
 function InstrumentPage() {
   const { inst } = Route.useLoaderData();
-  const beginnerPreview = getModules(inst.name, "beginner");
+  const beginnerPreview = getLessons(inst, "beginner").slice(0, 5);
 
   return (
     <div>
@@ -83,7 +83,7 @@ function InstrumentPage() {
       <section className="border-y border-border bg-secondary/30">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-bold">Choose your level</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Every level has 5 ordered modules. Complete each one to unlock the next.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Every level has {LESSONS_PER_LEVEL} ordered lessons with quizzes. Complete each one to unlock the next.</p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {levels.map((l) => (
               <Link key={l.key} to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: l.key }} className="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-brand hover:shadow-xl">
@@ -104,8 +104,8 @@ function InstrumentPage() {
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-brand"><Music2 className="mr-1 inline h-4 w-4" /> Beginner curriculum</p>
-            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 modules</h2>
+            <p className="text-sm font-medium text-brand"><Music2 className="mr-1 inline h-4 w-4" /> Beginner curriculum preview</p>
+            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 of {LESSONS_PER_LEVEL} lessons</h2>
           </div>
           <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
             <Link to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: "beginner" }}>Start Module 1 <ArrowRight className="ml-1 h-4 w-4" /></Link>
@@ -114,9 +114,9 @@ function InstrumentPage() {
         <ol className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {beginnerPreview.map((m, idx) => (
             <li key={m.id} className="rounded-2xl border border-border bg-card p-5">
-              <div className="text-xs font-semibold uppercase tracking-wider text-brand">Module {idx + 1}</div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-brand">Lesson {idx + 1} · {m.durationMin} min</div>
               <div className="mt-1 font-display font-semibold">{m.title}</div>
-              <p className="mt-2 text-xs text-muted-foreground line-clamp-3">{m.theory}</p>
+              <p className="mt-2 text-xs text-muted-foreground line-clamp-3">{m.objectives[0]}</p>
             </li>
           ))}
         </ol>
