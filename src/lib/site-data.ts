@@ -4,16 +4,16 @@ import violin from "@/assets/inst-violin.jpg";
 import drums from "@/assets/inst-drums.jpg";
 import keyboard from "@/assets/inst-keyboard.jpg";
 import bass from "@/assets/inst-bass.jpg";
-import sax from "@/assets/inst-sax.jpg";
-import trumpet from "@/assets/inst-trumpet.jpg";
 import ukulele from "@/assets/inst-ukulele.jpg";
-import recorder from "@/assets/inst-recorder.jpg";
+
+import trumpet from "@/assets/inst-trumpet.jpg";
+
 import flute from "@/assets/inst-flute.jpg";
 import cello from "@/assets/inst-cello.jpg";
 import singing from "@/assets/inst-singing.jpg";
 import production from "@/assets/inst-production.jpg";
-import ear from "@/assets/inst-ear.jpg";
-import theoryImg from "@/assets/inst-theory.jpg";
+
+
 
 export type Level = "beginner" | "intermediate" | "advanced";
 
@@ -351,48 +351,6 @@ export const instruments: Instrument[] = [
     intermediateSong: "a full 2-minute arrangement",
     advancedSong: "a finished, mixed and mastered track",
   },
-  {
-    slug: "ear-training",
-    name: "Ear Training",
-    family: "theory",
-    description: "Recognise intervals, chords and rhythms instantly by ear.",
-    longDescription:
-      "Ear training is the skill that separates good musicians from great ones. Once you can hear intervals, chords and rhythms clearly, you can learn any song by ear and improvise with confidence.",
-    history:
-      "Systematic ear training goes back to Guido of Arezzo (11th century) who invented solfège syllables. Modern methods build on Kodály, Suzuki and jazz curricula.",
-    whatYouLearn: ["Intervals (2nd through octave)", "Major vs minor chords by ear", "Chord progressions", "Rhythm dictation", "Solfège & singing intervals", "Transcription"],
-    image: ear,
-    firstNotes: "ascending major and minor 2nds",
-    primaryScale: "solfège in C major (do-re-mi…)",
-    soloFriendly: "singing back short melodies",
-    keyTechnique: "singing what you hear",
-    articulationTerm: "phrasing and contour",
-    ensembleContext: "playing by ear with others",
-    practiceSong: "sing a 4-note melody back after one hearing",
-    intermediateSong: "transcribe a simple pop chorus",
-    advancedSong: "transcribe a full jazz solo by ear",
-  },
-  {
-    slug: "music-theory",
-    name: "Music Theory",
-    family: "theory",
-    description: "The language behind every song — from notation to harmony.",
-    longDescription:
-      "Music theory is the language musicians use to talk about what they hear and play. It's the fastest way to unlock why songs work, how to write your own and how to communicate with other musicians.",
-    history:
-      "Western music theory grew out of ancient Greek and medieval church music. Modern harmonic theory was codified by Rameau in the 18th century and continues to evolve today.",
-    whatYouLearn: ["The musical alphabet", "Staff notation", "Rhythm & note values", "Scales & keys", "Intervals & chords", "Chord progressions & harmony"],
-    image: theoryImg,
-    firstNotes: "the musical alphabet A B C D E F G",
-    primaryScale: "the C major scale",
-    soloFriendly: "writing a simple 8-bar melody",
-    keyTechnique: "reading and writing on the staff",
-    articulationTerm: "phrasing and cadences",
-    ensembleContext: "analysing a full song",
-    practiceSong: "notate a simple melody you know",
-    intermediateSong: "harmonise a 16-bar melody",
-    advancedSong: "analyse the harmony of a jazz standard",
-  },
 ];
 
 export const levels: { key: Level; label: string; blurb: string }[] = [
@@ -411,37 +369,19 @@ const THEORY_TOPICS: Record<Level, string[]> = {
     "The musical alphabet (A B C D E F G)",
     "The staff, treble & bass clef",
     "Note values: whole, half, quarter, eighth",
-    "Time signatures: 4/4 and 3/4",
-    "Rests and counting",
-    "Dynamics: piano (p) and forte (f)",
-    "Sharps, flats & naturals",
-    "The C major scale",
-    "Simple intervals: 2nds and 3rds",
-    "Reading a simple lead sheet",
+  
   ],
   intermediate: [
     "Major & minor scales",
     "Key signatures & the circle of fifths",
     "Triads: major, minor, diminished, augmented",
-    "The I–IV–V–vi progression",
-    "Intervals up to the octave",
-    "Syncopation and 16th notes",
-    "Pentatonic scales (major & minor)",
-    "Arpeggios & broken chords",
-    "Basic chord inversions",
-    "Reading and writing lead sheets",
+  
   ],
   advanced: [
     "7th chords (maj7, min7, dominant 7)",
     "Modes of the major scale",
     "Secondary dominants",
-    "Modal interchange",
-    "Chord substitutions (tritone, ii–V)",
-    "Melodic minor and its modes",
-    "Advanced rhythm: polyrhythms and odd meters",
-    "Voice leading",
-    "Reharmonisation techniques",
-    "Composition & song form (AABA, verse/chorus/bridge)",
+  
   ],
 };
 
@@ -462,6 +402,121 @@ type Template = {
 };
 
 const beginnerTemplates: Template[] = [
+  {
+    title: (i) => `Introduction to the ${i.name}`,
+    objectives: (i) => [
+      `Understand what the ${i.name.toLowerCase()} is`,
+      `Learn how the ${i.name.toLowerCase()} is used`,
+      "Practice basic posture for playing",
+      "Practice basic hand position for playing",
+    ],
+    theory: (i, t) =>
+      `Welcome to your first lesson on the ${i.name.toLowerCase()}! In this lesson, we\'ll explore what the ${i.name.toLowerCase()} is, how it\'s typically used in music, and the fundamental posture and hand positions required to play it effectively. We\'ll also touch upon ${t} to give you a foundational understanding of music theory related to your instrument. Proper posture and hand position are crucial for developing good technique and preventing discomfort, so we\'ll focus on these basics before we even play a note.`,
+    steps: (i) => [
+      `Identify the main parts of the ${i.name.toLowerCase()}`,
+      `Demonstrate how the ${i.name.toLowerCase()} is held or positioned`,
+      "Practice sitting or standing with correct playing posture",
+      "Form the basic hand shape for playing the instrument",
+    ],
+    techniqueExercises: (i) => [
+      `Spend 10-15 minutes becoming comfortable holding and using the ${i.name.toLowerCase()}`,
+      "Perform gentle stretches for hands and wrists",
+      "Practice maintaining correct posture for short periods",
+    ],
+    practiceRoutine: () =>
+      "15 minutes: 5 min posture check, 5 min hand position practice, 5 min familiarization with the instrument.",
+    homework: (i) =>
+      `Observe professional musicians playing the ${i.name.toLowerCase()} and note their posture and hand position.`,
+    tips: () => [
+      "Start slowly and focus on comfort",
+      "Use a mirror to check your posture and hand position",
+      "Don\'t be afraid to adjust until it feels natural",
+    ],
+    mistakes: () => [
+      "Slouching or hunching over the instrument",
+      "Tensing up shoulders or wrists",
+      "Gripping the instrument too tightly",
+    ],
+    visual: "Instrument diagram with posture/hand position",
+    durationMin: 15,
+    difficulty: 1,
+  },
+  {
+    title: (i) => `Basic Notes on the ${i.name}`,
+    objectives: (i) => [
+      `Play ${i.firstNotes} cleanly`,
+      "Understand simple rhythm patterns",
+      "Apply basic finger placement",
+    ],
+    theory: (i, t) =>
+      `Now that you\'re comfortable with your instrument, it\'s time to play your first notes! We\'ll focus on ${i.firstNotes} and introduce simple rhythm. Understanding ${t} will help you connect the sounds you make with the underlying musical structure. Remember to play slowly and deliberately, focusing on clear tones and accurate finger placement. This foundational step is crucial for developing good habits and building a strong musical base.`,
+    steps: (i) => [
+      `Play each of ${i.firstNotes} individually`,
+      "Practice simple rhythm exercises (e.g., quarter notes)",
+      "Focus on correct finger placement for each note",
+      "Play short, repetitive patterns to build muscle memory",
+    ],
+    techniqueExercises: (i) => [
+      `Repeat ${i.firstNotes} with a steady rhythm`,
+      "Practice finger exercises to improve dexterity",
+      "Play along with a metronome at a slow tempo",
+    ],
+    practiceRoutine: () =>
+      "20 minutes: 5 min warm-up, 10 min playing first notes with rhythm, 5 min finger placement drills.",
+    homework: (i) =>
+      `Practice playing ${i.firstNotes} repeatedly until they sound clear and even.`,
+    tips: () => [
+      "Listen carefully to the sound you produce",
+      "Use a metronome to develop a steady beat",
+      "Relax your hands and fingers as much as possible",
+    ],
+    mistakes: () => [
+      "Rushing through notes",
+      "Inconsistent volume or tone",
+      "Incorrect finger placement leading to buzzing or muffled sounds",
+    ],
+    visual: "Fingering chart for first notes",
+    durationMin: 25,
+    difficulty: 1,
+  },
+  {
+    title: (i) => `Your First Song on the ${i.name}`,
+    objectives: (i) => [
+      `Play a simple beginner exercise or melody on the ${i.name.toLowerCase()}`,
+      "Maintain a steady rhythm throughout the song",
+      "Build confidence in your playing ability",
+    ],
+    theory: (i, t) =>
+      `Congratulations on reaching your first song! This lesson is all about applying what you\'ve learned to play a complete, albeit simple, piece of music. We\'ll focus on playing with a steady rhythm and building your confidence. This is where ${t} comes into play, as understanding the structure of the song will help you play it more musically. Don\'t worry about perfection; the goal is to enjoy the process and feel the satisfaction of playing a full song.`,
+    steps: (i) => [
+      `Learn the melody for ${i.practiceSong}`,
+      "Practice each phrase of the song slowly",
+      "Play the entire song with a metronome",
+      "Perform the song for yourself or a friend",
+    ],
+    techniqueExercises: (i) => [
+      `Play ${i.practiceSong} repeatedly, focusing on smooth transitions`,
+      "Practice counting out loud while playing",
+      "Record yourself and listen back for areas to improve",
+    ],
+    practiceRoutine: () =>
+      "25 minutes: 5 min warm-up, 15 min song practice (sections then full), 5 min free play.",
+    homework: (i) =>
+      `Perform ${i.practiceSong} for at least one person this week.`,
+    tips: () => [
+      "Break the song into small, manageable sections",
+      "Don\'t be afraid to play slowly; speed will come with practice",
+      "Enjoy the process of making music!",
+    ],
+    mistakes: () => [
+      "Trying to play too fast too soon",
+      "Skipping practice on difficult sections",
+      "Getting discouraged by mistakes",
+    ],
+    visual: "Sheet music for first song",
+    durationMin: 30,
+    difficulty: 2,
+  },
   {
     title: (i) => `Welcome to the ${i.name}`,
     objectives: (i) => [
@@ -847,6 +902,241 @@ const beginnerTemplates: Template[] = [
 
 const intermediateTemplates: Template[] = [
   {
+    title: () => "Improving Technique",
+    objectives: (i) => [
+      "Develop better posture and hand position",
+      "Improve accuracy in playing notes",
+      "Increase playing speed and fluidity",
+      "Refine tone quality on the instrument",
+    ],
+    theory: (i, t) =>
+      `Welcome to the intermediate level! Here, we focus on refining your technique. This lesson delves into improving your posture, hand position, accuracy, speed, and tone. We\\'ll connect these practical aspects with ${t}, understanding how a solid theoretical foundation enhances your physical playing. Consistent technical work is the cornerstone of advanced musicianship, allowing for greater expressive control and preventing bad habits from forming.`,
+    steps: (i) => [
+      "Review and adjust your basic posture and hand position",
+      "Practice exercises designed to improve finger accuracy",
+      "Work on speed drills with a metronome, gradually increasing tempo",
+      "Focus on producing a consistent and resonant tone for each note",
+    ],
+    techniqueExercises: (i) => [
+      `Practice ${i.primaryScale} with a focus on evenness and tone`,
+      "Execute finger exercises to build dexterity and speed",
+      "Play a simple melody, concentrating on smooth transitions and clear articulation",
+    ],
+    practiceRoutine: () =>
+      "30 minutes: 10 min warm-up and posture check, 10 min accuracy and speed drills, 10 min tone production exercises.",
+    homework: (i) =>
+      `Record yourself playing a short technical exercise and critically evaluate your accuracy, speed, and tone.`,
+    tips: () => [
+      "Use a mirror or video to observe your technique",
+      "Break down complex movements into smaller, manageable parts",
+      "Listen to professional players for tone inspiration",
+    ],
+    mistakes: () => [
+      "Neglecting warm-ups before practice",
+      "Trying to play too fast before achieving accuracy",
+      "Ignoring tension in the body while playing",
+    ],
+    visual: "Technique improvement exercises chart",
+    durationMin: 30,
+    difficulty: 3,
+  },
+  {
+    title: () => "Scales and Chords",
+    objectives: (i) => [
+      `Learn basic scales beyond ${i.primaryScale}`,
+      "Understand and play fundamental chords (where applicable)",
+      "Improve rhythm and timing in complex patterns",
+    ],
+    theory: (i, t) =>
+      `Scales and chords are the building blocks of music. Expanding your knowledge of these elements is crucial for intermediate players. In this lesson, we\\'ll explore new scales and introduce fundamental chords, linking them to ${t} to deepen your theoretical understanding. A strong grasp of scales and chords will unlock countless new songs and improvisation possibilities, making your playing more versatile and musical.`,
+    steps: (i) => [
+      `Learn and practice new scales relevant to the ${i.name.toLowerCase()}`,
+      "Identify and play basic chords (if applicable to the instrument)",
+      "Practice rhythmic patterns with syncopation and rests",
+      "Apply new scales and chords to simple musical phrases",
+    ],
+    techniqueExercises: (i) => [
+      `Play ${i.primaryScale} in different keys`,
+      "Practice chord progressions smoothly and in time",
+      "Improvise short melodies using newly learned scales",
+    ],
+    practiceRoutine: () =>
+      "35 minutes: 10 min scale warm-up, 15 min chord practice (if applicable) and rhythm drills, 10 min applying scales/chords to music.",
+    homework: (i) =>
+      `Learn a new song that primarily uses the scales and chords covered in this lesson.`,
+    tips: () => [
+      "Practice scales with different rhythmic variations",
+      "Use chord charts or diagrams as a reference",
+      "Listen to music and try to identify the scales and chords being used",
+    ],
+    mistakes: () => [
+      "Memorizing scales without understanding their structure",
+      "Ignoring the sound quality of individual notes within chords",
+      "Rushing through complex rhythms",
+    ],
+    visual: "Scale and chord diagrams",
+    durationMin: 35,
+    difficulty: 3,
+  },
+  {
+    title: () => "Performance Skills",
+    objectives: (i) => [
+      "Learn to play smoothly and expressively",
+      "Understand and apply dynamics (louds and softs)",
+      "Develop musical expression and phrasing",
+    ],
+    theory: (i, t) =>
+      `Moving beyond just playing the notes, this lesson focuses on making music truly expressive. We\\'ll explore performance skills such as playing smoothly, applying dynamics, and developing your musical interpretation. Connecting these to ${t}, you\\'ll learn how theoretical knowledge informs expressive choices. Performance is about telling a story with your instrument, and these skills will help you communicate emotions and ideas more effectively to your audience. If you would like to continue your musical journey through personalised online lessons, please contact me.`,
+    steps: (i) => [
+      "Practice connecting notes smoothly (legato)",
+      "Experiment with playing phrases at different dynamic levels (piano, forte)",
+      "Focus on phrasing and shaping melodies",
+      "Record and critically listen to your performances",
+    ],
+    techniqueExercises: (i) => [
+      "Play a familiar piece, exaggerating dynamics and phrasing",
+      "Practice controlling the attack and release of each note",
+      "Perform a short improvisation, emphasizing musical expression over technical complexity",
+    ],
+    practiceRoutine: () =>
+      "40 minutes: 10 min technical warm-up, 15 min dynamic and phrasing exercises, 15 min applying performance skills to a piece.",
+    homework: (i) =>
+      `Choose a piece and prepare it for a \"performance\" (even if it\\'s just for yourself or a pet), focusing on musicality.`,
+    tips: () => [
+      "Listen to recordings of different artists performing the same piece",
+      "Don\\'t be afraid to exaggerate dynamics in practice",
+      "Connect with the emotion of the music you\\'re playing",
+    ],
+    mistakes: () => [
+      "Playing everything at the same volume",
+      "Neglecting expressive markings in the music",
+      "Focusing only on technical accuracy, ignoring musicality",
+    ],
+    visual: "Dynamic and expression markings chart",
+    durationMin: 40,
+    difficulty: 4,
+  },
+];
+
+const advancedTemplates: Template[] = [
+  {
+    title: () => "Advanced Techniques",
+    objectives: (i) => [
+      "Master complex techniques specific to your instrument",
+      "Develop advanced finger dexterity and coordination",
+      "Explore extended range and expressive capabilities",
+      "Integrate advanced theory into practical application",
+    ],
+    theory: (i, t) =>
+      `At the advanced level, we push the boundaries of your technical and musical abilities. This lesson focuses on mastering advanced techniques unique to the ${i.name.toLowerCase()}, enhancing your dexterity, and expanding your expressive range. We will delve deeper into ${t}, applying complex theoretical concepts to sophisticated musical passages. This stage is about transforming challenges into opportunities for growth, enabling you to tackle more demanding repertoire with confidence and artistry.`,
+    steps: (i) => [
+      "Practice advanced exercises for speed and precision",
+      "Work on pieces that require intricate fingerwork or bowing techniques",
+      "Experiment with different articulations and tonal colors",
+      "Analyze and apply advanced theoretical concepts to your playing",
+    ],
+    techniqueExercises: (i) => [
+      `Perform advanced scales and arpeggios at high tempos`,
+      "Practice challenging etudes or technical studies",
+      "Focus on seamless transitions between difficult passages",
+    ],
+    practiceRoutine: () =>
+      "45 minutes: 15 min intensive technical warm-up, 20 min advanced exercise drills, 10 min application to complex pieces.",
+    homework: (i) =>
+      `Select a challenging piece and break it down into small, manageable sections for focused practice.`,
+    tips: () => [
+      "Consistency is key for mastering advanced techniques",
+      "Seek out masterclasses or advanced workshops",
+      "Don\"t shy away from difficult repertoire; it\"s where you grow most",
+    ],
+    mistakes: () => [
+      "Overlooking fundamental techniques in pursuit of speed",
+      "Practicing without a clear technical goal",
+      "Becoming complacent with current skill level",
+    ],
+    visual: "Advanced technique diagrams and exercises",
+    durationMin: 45,
+    difficulty: 5,
+  },
+  {
+    title: () => "Performance Preparation",
+    objectives: (i) => [
+      "Develop a comprehensive performance preparation routine",
+      "Manage performance anxiety and build stage presence",
+      "Refine musical interpretation for public presentation",
+      "Prepare a polished piece for performance",
+    ],
+    theory: (i, t) =>
+      `Performing is the ultimate test and reward of your musical journey. This lesson guides you through the essential steps of performance preparation, from managing anxiety to perfecting your stage presence. We integrate ${t} to ensure your interpretation is not only expressive but also theoretically sound. The goal is to equip you with the strategies and mindset needed to deliver a compelling and confident performance, whether for an audience or personal satisfaction.`,
+    steps: (i) => [
+      "Establish a consistent practice schedule leading up to a performance",
+      "Practice performing under simulated pressure (e.g., recording yourself)",
+      "Develop strategies for managing nerves and maintaining focus",
+      "Refine your chosen performance piece, focusing on musicality and expression",
+    ],
+    techniqueExercises: (i) => [
+      "Perform your piece for friends or family to gain experience",
+      "Practice mental run-throughs of your performance",
+      "Work on stage presence and audience engagement",
+    ],
+    practiceRoutine: () =>
+      "50 minutes: 10 min warm-up, 20 min performance piece run-throughs, 10 min mental preparation, 10 min cool-down.",
+    homework: (i) =>
+      `Schedule a mock performance or record a high-quality video of your prepared piece.`,
+    tips: () => [
+      "Visualize success before you perform",
+      "Focus on communicating the music, not just playing notes",
+      "Embrace mistakes as learning opportunities, not failures",
+    ],
+    mistakes: () => [
+      "Cramming practice sessions right before a performance",
+      "Ignoring mental preparation for performance",
+      "Allowing nerves to dictate your performance",
+    ],
+    visual: "Performance checklist and mental preparation guide",
+    durationMin: 50,
+    difficulty: 5,
+  },
+  {
+    title: () => "Professional Development",
+    objectives: (i) => [
+      "Understand pathways for continued musical growth",
+      "Develop effective long-term practice routines",
+      "Explore opportunities for collaboration and mentorship",
+      "Cultivate a lifelong passion for music",
+    ],
+    theory: (i, t) =>
+      `You have completed the free Harmony Hub lessons. This final lesson is dedicated to your professional development as a musician, guiding you on how to continue your musical journey beyond this course. We will discuss strategies for sustained growth, effective practice routines, and the importance of collaboration and mentorship. By applying the principles of ${t}, you will be equipped to explore advanced musical concepts independently. This is not an end, but a new beginning, empowering you to shape your unique musical path. To continue learning with personalised online classes, advanced lessons and one-on-one coaching, please contact me.`,
+    steps: (i) => [
+      "Reflect on your musical journey and set new long-term goals",
+      "Design a personalized practice routine for ongoing improvement",
+      "Research opportunities for advanced study, workshops, or ensembles",
+      "Connect with other musicians and mentors in your community",
+    ],
+    techniqueExercises: (i) => [
+      "Continuously challenge yourself with new repertoire and techniques",
+      "Engage in regular sight-reading and ear training exercises",
+      "Explore different genres and styles on your instrument",
+    ],
+    practiceRoutine: () =>
+      "60 minutes: 15 min warm-up, 30 min focused skill development, 15 min creative exploration/improvisation.",
+    homework: (i) =>
+      `Create a 6-month musical development plan, including specific goals and milestones.`,
+    tips: () => [
+      "Never stop learning and exploring new music",
+      "Seek feedback from experienced musicians",
+      "Share your music with others and collaborate",
+    ],
+    mistakes: () => [
+      "Becoming stagnant in your practice routine",
+      "Isolating yourself from the musical community",
+      "Losing sight of the joy and passion for music",
+    ],
+    visual: "Musical journey roadmap",
+    durationMin: 60,
+    difficulty: 5,
+  },
+  {
     title: () => "Major scales in two octaves",
     objectives: (i) => [
       `Play ${i.primaryScale} in two octaves`,
@@ -1191,6 +1481,123 @@ const intermediateTemplates: Template[] = [
 ];
 
 const advancedTemplates: Template[] = [
+  {
+    title: () => "Advanced Techniques",
+    objectives: (i) => [
+      "Master complex techniques specific to your instrument",
+      "Develop advanced finger dexterity and coordination",
+      "Explore extended range and expressive capabilities",
+      "Integrate advanced theory into practical application",
+    ],
+    theory: (i, t) =>
+      `At the advanced level, we push the boundaries of your technical and musical abilities. This lesson focuses on mastering advanced techniques unique to the ${i.name.toLowerCase()}, enhancing your dexterity, and expanding your expressive range. We will delve deeper into ${t}, applying complex theoretical concepts to sophisticated musical passages. This stage is about transforming challenges into opportunities for growth, enabling you to tackle more demanding repertoire with confidence and artistry.`,
+    steps: (i) => [
+      "Practice advanced exercises for speed and precision",
+      "Work on pieces that require intricate fingerwork or bowing techniques",
+      "Experiment with different articulations and tonal colors",
+      "Analyze and apply advanced theoretical concepts to your playing",
+    ],
+    techniqueExercises: (i) => [
+      `Perform advanced scales and arpeggios at high tempos`,
+      "Practice challenging etudes or technical studies",
+      "Focus on seamless transitions between difficult passages",
+    ],
+    practiceRoutine: () =>
+      "45 minutes: 15 min intensive technical warm-up, 20 min advanced exercise drills, 10 min application to complex pieces.",
+    homework: (i) =>
+      `Select a challenging piece and break it down into small, manageable sections for focused practice.`,
+    tips: () => [
+      "Consistency is key for mastering advanced techniques",
+      "Seek out masterclasses or advanced workshops",
+      "Don't shy away from difficult repertoire; it's where you grow most",
+    ],
+    mistakes: () => [
+      "Overlooking fundamental techniques in pursuit of speed",
+      "Practicing without a clear technical goal",
+      "Becoming complacent with current skill level",
+    ],
+    visual: "Advanced technique diagrams and exercises",
+    durationMin: 45,
+    difficulty: 5,
+  },
+  {
+    title: () => "Performance Preparation",
+    objectives: (i) => [
+      "Develop a comprehensive performance preparation routine",
+      "Manage performance anxiety and build stage presence",
+      "Refine musical interpretation for public presentation",
+      "Prepare a polished piece for performance",
+    ],
+    theory: (i, t) =>
+      `Performing is the ultimate test and reward of your musical journey. This lesson guides you through the essential steps of performance preparation, from managing anxiety to perfecting your stage presence. We integrate ${t} to ensure your interpretation is not only expressive but also theoretically sound. The goal is to equip you with the strategies and mindset needed to deliver a compelling and confident performance, whether for an audience or personal satisfaction.`,
+    steps: (i) => [
+      "Establish a consistent practice schedule leading up to a performance",
+      "Practice performing under simulated pressure (e.g., recording yourself)",
+      "Develop strategies for managing nerves and maintaining focus",
+      "Refine your chosen performance piece, focusing on musicality and expression",
+    ],
+    techniqueExercises: (i) => [
+      "Perform your piece for friends or family to gain experience",
+      "Practice mental run-throughs of your performance",
+      "Work on stage presence and audience engagement",
+    ],
+    practiceRoutine: () =>
+      "50 minutes: 10 min warm-up, 20 min performance piece run-throughs, 10 min mental preparation, 10 min cool-down.",
+    homework: (i) =>
+      `Schedule a mock performance or record a high-quality video of your prepared piece.`,
+    tips: () => [
+      "Visualize success before you perform",
+      "Focus on communicating the music, not just playing notes",
+      "Embrace mistakes as learning opportunities, not failures",
+    ],
+    mistakes: () => [
+      "Cramming practice sessions right before a performance",
+      "Ignoring mental preparation for performance",
+      "Allowing nerves to dictate your performance",
+    ],
+    visual: "Performance checklist and mental preparation guide",
+    durationMin: 50,
+    difficulty: 5,
+  },
+  {
+    title: () => "Professional Development",
+    objectives: (i) => [
+      "Understand pathways for continued musical growth",
+      "Develop effective long-term practice routines",
+      "Explore opportunities for collaboration and mentorship",
+      "Cultivate a lifelong passion for music",
+    ],
+    theory: (i, t) =>
+      `You have completed the free Harmony Hub lessons. This final lesson is dedicated to your professional development as a musician, guiding you on how to continue your musical journey beyond this course. We will discuss strategies for sustained growth, effective practice routines, and the importance of collaboration and mentorship. By applying the principles of ${t}, you will be equipped to explore advanced musical concepts independently. This is not an end, but a new beginning, empowering you to shape your unique musical path. To continue learning with personalised online classes, advanced lessons and one-on-one coaching, please contact me.`,
+    steps: (i) => [
+      "Reflect on your musical journey and set new long-term goals",
+      "Design a personalized practice routine for ongoing improvement",
+      "Research opportunities for advanced study, workshops, or ensembles",
+      "Connect with other musicians and mentors in your community",
+    ],
+    techniqueExercises: (i) => [
+      "Continuously challenge yourself with new repertoire and techniques",
+      "Engage in regular sight-reading and ear training exercises",
+      "Explore different genres and styles on your instrument",
+    ],
+    practiceRoutine: () =>
+      "60 minutes: 15 min warm-up, 30 min focused skill development, 15 min creative exploration/improvisation.",
+    homework: (i) =>
+      `Create a 6-month musical development plan, including specific goals and milestones.`,
+    tips: () => [
+      "Never stop learning and exploring new music",
+      "Seek feedback from experienced musicians",
+      "Share your music with others and collaborate",
+    ],
+    mistakes: () => [
+      "Becoming stagnant in your practice routine",
+      "Isolating yourself from the musical community",
+      "Losing sight of the joy and passion for music",
+    ],
+    visual: "Musical journey roadmap",
+    durationMin: 60,
+    difficulty: 5,
+  },
   {
     title: () => "Advanced technique and daily warm-up routine",
     objectives: () => [
@@ -1613,5 +2020,5 @@ export function getModules(instrumentName: string, level: Level) {
   return buildLessons(inst, level);
 }
 
-export const LESSONS_PER_LEVEL = 10;
+export const LESSONS_PER_LEVEL = 3;
 export const TOTAL_LESSONS_PER_INSTRUMENT = LESSONS_PER_LEVEL * levels.length;

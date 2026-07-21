@@ -62,31 +62,6 @@ export function buildQuiz(inst: Instrument, level: Level, lesson: Lesson): Quiz 
   const q3 = q[2] as Extract<QuizQuestion, { kind: "mc" }>;
   q3.correctIndex = q3.options.indexOf(lesson.mistakes[0]);
 
-  // Q4 — Fill in the blank: practice routine minutes
-  const mins = extractMinutes(lesson.practiceRoutine) ?? lesson.durationMin;
-  q.push({
-    id: `${lesson.id}-q4`,
-    kind: "fill",
-    prompt: `Complete the recommended practice routine duration.`,
-    before: "This lesson's suggested practice routine lasts about",
-    after: "minutes.",
-    correct: String(mins),
-    explanation: `The suggested routine is roughly ${mins} minutes.`,
-  });
-
-  // Q5 — Match tips → outcomes (matching pair drag-free UI: two columns, users pick correct pairing)
-  q.push({
-    id: `${lesson.id}-q5`,
-    kind: "match",
-    prompt: `Match the tip to what it improves.`,
-    pairs: [
-      { left: "Record yourself and listen back", right: "Objective self-review" },
-      { left: "Practise with a metronome", right: "Steady time" },
-      { left: "Slow practice first", right: "Clean technique" },
-    ],
-    explanation: "Reviewing recordings builds objective judgement; metronomes build time; slow practice builds cleanliness.",
-  });
-
   return {
     lessonId: lesson.id,
     passingPct: 70,

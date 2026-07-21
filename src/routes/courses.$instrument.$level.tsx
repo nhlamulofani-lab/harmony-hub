@@ -256,7 +256,21 @@ function LessonPage() {
             <div className="mt-2 font-display text-3xl font-bold">{percent}%</div>
             <Progress value={percent} className="mt-3" />
             {percent === 100 && (
-              <p className="mt-3 text-xs font-medium text-brand">🎓 Level complete — certificate unlocked in your Dashboard.</p>
+              <>
+                <p className="mt-3 text-xs font-medium text-brand">Congratulations! You have completed this level.</p>
+                {level === "advanced" && (
+                  <div className="mt-6 rounded-2xl border border-brand bg-brand-soft/40 p-5 text-center">
+                    <p className="font-display text-xl font-bold text-brand">🎵 Continue Learning With Me</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Congratulations on completing these introductory lessons.</p>
+                    <p className="mt-1 text-sm text-muted-foreground">If you would like to continue with personalised online music lessons, coaching, practical exercises and live classes, I would love to help you.</p>
+                    <p className="mt-4 text-sm font-medium">Email: nhlamulofani@gmail.com</p>
+                    <p className="text-sm font-medium">Phone / WhatsApp: 060 841 4467</p>
+                    <Button asChild className="mt-4 rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
+                      <a href="mailto:nhlamulofani@gmail.com?subject=Inquiry about online music lessons">Contact for Online Lessons</a>
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
