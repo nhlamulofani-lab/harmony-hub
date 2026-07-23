@@ -494,7 +494,7 @@ function LessonPage() {
               </div>
 
               <p className="text-center text-xs text-muted-foreground">
-                {LESSONS_PER_LEVEL[level]} lessons in this level · sequential unlock · progress saved to your account.
+                {LESSONS_PER_LEVEL[level as Level]} lessons in this level · sequential unlock · progress saved to your account.
               </p>
 
             </div>
