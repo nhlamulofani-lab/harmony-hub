@@ -1560,5 +1560,11 @@ export function getModules(instrumentName: string, level: Level) {
   return buildLessons(inst, level);
 }
 
-export const LESSONS_PER_LEVEL = 3;
-export const TOTAL_LESSONS_PER_INSTRUMENT = LESSONS_PER_LEVEL * levels.length;
+export const LESSONS_PER_LEVEL: Record<Level, number> = {
+  beginner: beginnerTemplates.length,
+  intermediate: intermediateTemplates.length,
+  advanced: advancedTemplates.length,
+};
+export const TOTAL_LESSONS_PER_INSTRUMENT =
+  LESSONS_PER_LEVEL.beginner + LESSONS_PER_LEVEL.intermediate + LESSONS_PER_LEVEL.advanced;
+
