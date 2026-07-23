@@ -5,13 +5,14 @@ import drums from "@/assets/inst-drums.jpg";
 import keyboard from "@/assets/inst-keyboard.jpg";
 import bass from "@/assets/inst-bass.jpg";
 import ukulele from "@/assets/inst-ukulele.jpg";
-
+import recorder from "@/assets/inst-recorder.jpg";
+import sax from "@/assets/inst-sax.jpg";
 import trumpet from "@/assets/inst-trumpet.jpg";
-
 import flute from "@/assets/inst-flute.jpg";
 import cello from "@/assets/inst-cello.jpg";
 import singing from "@/assets/inst-singing.jpg";
 import production from "@/assets/inst-production.jpg";
+
 
 
 
