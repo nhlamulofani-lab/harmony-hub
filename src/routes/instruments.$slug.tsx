@@ -83,7 +83,7 @@ function InstrumentPage() {
       <section className="border-y border-border bg-secondary/30">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-bold">Choose your level</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Every level has {LESSONS_PER_LEVEL} ordered lessons with quizzes. Complete each one to unlock the next.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Each level has a full sequence of ordered lessons with quizzes — {LESSONS_PER_LEVEL.beginner} in Beginner, {LESSONS_PER_LEVEL.intermediate} in Intermediate, and {LESSONS_PER_LEVEL.advanced} in Advanced. Complete each one to unlock the next.</p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {levels.map((l) => (
               <Link key={l.key} to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: l.key }} className="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-brand hover:shadow-xl">
