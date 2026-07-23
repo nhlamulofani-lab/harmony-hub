@@ -370,21 +370,49 @@ const THEORY_TOPICS: Record<Level, string[]> = {
     "The musical alphabet (A B C D E F G)",
     "The staff, treble & bass clef",
     "Note values: whole, half, quarter, eighth",
-  
+    "Rests and silence in music",
+    "Time signatures (4/4, 3/4, 2/4)",
+    "Simple rhythms and counting",
+    "Dynamics: piano, forte, crescendo",
+    "The C major scale",
+    "Intervals: 2nds, 3rds, 4ths, 5ths",
+    "Simple chords: I, IV, V",
+    "Tempo markings & the metronome",
+    "Articulation: legato & staccato",
+    "Basic ear training: high vs low, loud vs soft",
   ],
   intermediate: [
     "Major & minor scales",
     "Key signatures & the circle of fifths",
     "Triads: major, minor, diminished, augmented",
-  
+    "Chord inversions",
+    "The pentatonic scale",
+    "Chord progressions (I–V–vi–IV)",
+    "Syncopation & 16th-note rhythms",
+    "Reading in multiple keys",
+    "Basic sight-reading strategy",
+    "Ear training: intervals and chord quality",
+    "Arpeggios across the range",
+    "Simple modulation between keys",
+    "Song form: verse / chorus / bridge",
   ],
   advanced: [
     "7th chords (maj7, min7, dominant 7)",
     "Modes of the major scale",
     "Secondary dominants",
-  
+    "Melodic & harmonic minor scales",
+    "Advanced chord voicings & voice leading",
+    "Extended harmony: 9ths, 11ths, 13ths",
+    "Reharmonisation techniques",
+    "Improvisation over changes",
+    "Complex rhythms & odd meters",
+    "Counterpoint basics",
+    "Advanced sight-reading",
+    "Composition & arranging basics",
+    "Performance preparation & mindset",
   ],
 };
+
 
 // ---- Level-specific lesson templates ----
 type Template = {
