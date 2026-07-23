@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { instruments } from "@/lib/site-data";
@@ -16,6 +16,13 @@ export const Route = createFileRoute("/instruments")({
 });
 
 function InstrumentsPage() {
+  const childMatches = useChildMatches();
+  const hasChild = childMatches.length > 0;
+
+  if (hasChild) {
+    return <Outlet />;
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <header className="max-w-2xl">
