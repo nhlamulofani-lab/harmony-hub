@@ -105,7 +105,7 @@ function InstrumentPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-brand"><Music2 className="mr-1 inline h-4 w-4" /> Beginner curriculum preview</p>
-            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 of {LESSONS_PER_LEVEL} lessons</h2>
+            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 of {LESSONS_PER_LEVEL.beginner} lessons</h2>
           </div>
           <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
             <Link to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: "beginner" }}>Start Module 1 <ArrowRight className="ml-1 h-4 w-4" /></Link>
