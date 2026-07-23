@@ -29,17 +29,14 @@ function Dashboard() {
     if (!user) return;
     let cancelled = false;
     const load = async () => {
-      const [progRes, sessRes, quizRes, profRes] = await Promise.all([
+      const [progRes, profRes] = await Promise.all([
         supabase.from("lesson_progress").select("instrument_slug, level, module_id, completed_at").eq("user_id", user.id),
-
-
         supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
       ]);
       if (cancelled) return;
       setProgress((progRes.data ?? []) as ProgressRow[]);
-
-
       if (profRes.data?.full_name) setProfileName(profRes.data.full_name);
+
     };
     load();
     const ch = supabase
@@ -52,7 +49,7 @@ function Dashboard() {
 
   const perInstrument = useMemo(() => instruments.map((inst) => {
     const perLevel = levels.map((l) => {
-      const total = LESSONS_PER_LEVEL;
+      const total = LESSONS_PER_LEVEL[l.key];
       const done = progress.filter((r) => r.instrument_slug === inst.slug && r.level === l.key).length;
       return { level: l.key, label: l.label, total, done, pct: total ? Math.round((done / total) * 100) : 0 };
     });
@@ -62,15 +59,10 @@ function Dashboard() {
     return { inst, perLevel, overall, doneAll, totalAll };
   }), [progress]);
 
-
-
   const lessonsDone = progress.length;
+  const totalLessonsAll = instruments.length * (LESSONS_PER_LEVEL.beginner + LESSONS_PER_LEVEL.intermediate + LESSONS_PER_LEVEL.advanced);
+  const overallPct = totalLessonsAll ? Math.round((lessonsDone / totalLessonsAll) * 100) : 0;
 
-
-
-
-
-  const overallPct = Math.round((lessonsDone / (instruments.length * levels.length * LESSONS_PER_LEVEL)) * 100);
 
 
 
@@ -116,7 +108,7 @@ function Dashboard() {
 
       {/* Stat cards */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <StatCard icon={CheckCircle2} label="Lessons complete" value={String(lessonsDone)} sub={`of ${instruments.length * levels.length * LESSONS_PER_LEVEL}`} />
+        <StatCard icon={CheckCircle2} label="Lessons complete" value={String(lessonsDone)} sub={`of ${totalLessonsAll}`} />
         <StatCard icon={GraduationCap} label="Overall Progress" value={`${overallPct}%`} />
       </div>
 

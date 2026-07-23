@@ -83,7 +83,7 @@ function InstrumentPage() {
       <section className="border-y border-border bg-secondary/30">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-bold">Choose your level</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Every level has {LESSONS_PER_LEVEL} ordered lessons with quizzes. Complete each one to unlock the next.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Each level has a full sequence of ordered lessons with quizzes — {LESSONS_PER_LEVEL.beginner} in Beginner, {LESSONS_PER_LEVEL.intermediate} in Intermediate, and {LESSONS_PER_LEVEL.advanced} in Advanced. Complete each one to unlock the next.</p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {levels.map((l) => (
               <Link key={l.key} to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: l.key }} className="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-brand hover:shadow-xl">
@@ -105,7 +105,7 @@ function InstrumentPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-brand"><Music2 className="mr-1 inline h-4 w-4" /> Beginner curriculum preview</p>
-            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 of {LESSONS_PER_LEVEL} lessons</h2>
+            <h2 className="mt-2 font-display text-2xl font-bold">Your first 5 of {LESSONS_PER_LEVEL.beginner} lessons</h2>
           </div>
           <Button asChild className="rounded-full bg-brand text-brand-foreground hover:bg-brand/90">
             <Link to="/courses/$instrument/$level" params={{ instrument: inst.slug, level: "beginner" }}>Start Module 1 <ArrowRight className="ml-1 h-4 w-4" /></Link>

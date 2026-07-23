@@ -5,13 +5,14 @@ import drums from "@/assets/inst-drums.jpg";
 import keyboard from "@/assets/inst-keyboard.jpg";
 import bass from "@/assets/inst-bass.jpg";
 import ukulele from "@/assets/inst-ukulele.jpg";
-
+import recorder from "@/assets/inst-recorder.jpg";
+import sax from "@/assets/inst-sax.jpg";
 import trumpet from "@/assets/inst-trumpet.jpg";
-
 import flute from "@/assets/inst-flute.jpg";
 import cello from "@/assets/inst-cello.jpg";
 import singing from "@/assets/inst-singing.jpg";
 import production from "@/assets/inst-production.jpg";
+
 
 
 
@@ -369,21 +370,49 @@ const THEORY_TOPICS: Record<Level, string[]> = {
     "The musical alphabet (A B C D E F G)",
     "The staff, treble & bass clef",
     "Note values: whole, half, quarter, eighth",
-  
+    "Rests and silence in music",
+    "Time signatures (4/4, 3/4, 2/4)",
+    "Simple rhythms and counting",
+    "Dynamics: piano, forte, crescendo",
+    "The C major scale",
+    "Intervals: 2nds, 3rds, 4ths, 5ths",
+    "Simple chords: I, IV, V",
+    "Tempo markings & the metronome",
+    "Articulation: legato & staccato",
+    "Basic ear training: high vs low, loud vs soft",
   ],
   intermediate: [
     "Major & minor scales",
     "Key signatures & the circle of fifths",
     "Triads: major, minor, diminished, augmented",
-  
+    "Chord inversions",
+    "The pentatonic scale",
+    "Chord progressions (I–V–vi–IV)",
+    "Syncopation & 16th-note rhythms",
+    "Reading in multiple keys",
+    "Basic sight-reading strategy",
+    "Ear training: intervals and chord quality",
+    "Arpeggios across the range",
+    "Simple modulation between keys",
+    "Song form: verse / chorus / bridge",
   ],
   advanced: [
     "7th chords (maj7, min7, dominant 7)",
     "Modes of the major scale",
     "Secondary dominants",
-  
+    "Melodic & harmonic minor scales",
+    "Advanced chord voicings & voice leading",
+    "Extended harmony: 9ths, 11ths, 13ths",
+    "Reharmonisation techniques",
+    "Improvisation over changes",
+    "Complex rhythms & odd meters",
+    "Counterpoint basics",
+    "Advanced sight-reading",
+    "Composition & arranging basics",
+    "Performance preparation & mindset",
   ],
 };
+
 
 // ---- Level-specific lesson templates ----
 type Template = {
@@ -1016,7 +1045,261 @@ const intermediateTemplates: Template[] = [
     durationMin: 40,
     difficulty: 4,
   },
+  {
+    title: () => "Chord inversions and voice leading",
+    objectives: (i) => [
+      "Play triads in root position, first and second inversion",
+      "Move smoothly between chords with minimal hand movement",
+      `Apply inversions to a real song on the ${i.name.toLowerCase()}`,
+    ],
+    theory: (i, t) =>
+      `Chord inversions are the same chord played with a different note on the bottom. In this lesson we pair ${t} with practical voice-leading on the ${i.name.toLowerCase()} — moving one or two notes at a time instead of jumping. Great voice-leading is the difference between playing chords and playing music.`,
+    steps: (i) => [
+      "Play C, F and G in root position",
+      "Play the same chords in first inversion, then second",
+      "Loop I–IV–V using the smoothest voicings you can find",
+      `Apply it to ${i.practiceSong}`,
+    ],
+    techniqueExercises: () => [
+      "Cycle through inversions of one chord for 60 seconds",
+      "Play a I–vi–IV–V loop moving only the closest notes",
+      "Record and check that every chord is clean",
+    ],
+    practiceRoutine: () => "30 minutes: 10 min inversions, 15 min progressions, 5 min applying to a song.",
+    homework: () => "Learn the chords of one song using inversions instead of root position.",
+    tips: () => ["Aim for the closest next chord shape", "Say the bass note out loud as you play", "Slow tempo first"],
+    mistakes: () => ["Always jumping back to root position", "Ignoring the top note of each chord", "Rushing before shapes are clean"],
+    visual: "Triad inversion diagram",
+    durationMin: 35,
+    difficulty: 3,
+  },
+  {
+    title: () => "The pentatonic scale and simple soloing",
+    objectives: (i) => [
+      `Play the minor pentatonic scale on the ${i.name.toLowerCase()}`,
+      "Improvise a short solo over a backing track",
+      "Use call-and-response phrasing",
+    ],
+    theory: (i, t) =>
+      `The pentatonic scale is the most universal soloing tool in music. Paired with ${t}, it opens the door to improvisation on the ${i.name.toLowerCase()} — from blues and rock to gospel and pop.`,
+    steps: (i) => [
+      `Learn the A minor pentatonic on the ${i.name.toLowerCase()}`,
+      "Play it up and down slowly with a metronome",
+      "Play short 2-bar phrases and leave space to breathe",
+      "Improvise over a simple backing track",
+    ],
+    techniqueExercises: () => [
+      "Play the scale in eighth notes, then triplets",
+      "Improvise using only 3 notes for a full minute",
+      "Copy a phrase you heard from a song you love",
+    ],
+    practiceRoutine: () => "35 minutes: 10 min scale, 15 min phrasing, 10 min free improvisation.",
+    homework: () => "Record a 60-second solo over a pentatonic backing track online.",
+    tips: () => ["Leave space between phrases", "Repeat ideas — repetition is musical", "Sing what you want to play first"],
+    mistakes: () => ["Playing every note you know at once", "Never stopping to breathe", "Ignoring the backing rhythm"],
+    visual: "Pentatonic scale map",
+    durationMin: 35,
+    difficulty: 3,
+  },
+  {
+    title: () => "Chord progressions in real songs",
+    objectives: () => [
+      "Recognise the I–V–vi–IV progression by ear",
+      "Play three familiar songs that use it",
+      "Transpose the progression to two new keys",
+    ],
+    theory: (i, t) =>
+      `Most modern songs share the same handful of progressions. In this lesson we combine ${t} with the world's most-used pop progression and apply it directly on the ${i.name.toLowerCase()}. Learn one progression well and you'll unlock hundreds of songs at once.`,
+    steps: (i) => [
+      "Play I–V–vi–IV in the key of C",
+      "Sing the melody of a song you know over it",
+      "Move it to the key of G, then D",
+      `Apply it on the ${i.name.toLowerCase()} with steady rhythm`,
+    ],
+    techniqueExercises: () => [
+      "Loop the progression for 2 minutes without stopping",
+      "Play it with three different rhythmic patterns",
+      "Practise transposing to a random key with a metronome",
+    ],
+    practiceRoutine: () => "30 minutes: 5 min warm-up, 20 min progression drills, 5 min song application.",
+    homework: () => "Find 3 real songs that use I–V–vi–IV and learn to play along.",
+    tips: () => ["Count out loud", "Change chord on beat 1", "Sing the bass line to lock in the changes"],
+    mistakes: () => ["Losing the pulse when the chord changes", "Playing every chord in root position only", "Skipping the transposition step"],
+    visual: "I–V–vi–IV wheel",
+    durationMin: 30,
+    difficulty: 3,
+  },
+  {
+    title: () => "Syncopation and 16th-note rhythms",
+    objectives: () => [
+      "Count 16th notes accurately (1 e & a)",
+      "Play syncopated rhythms in time",
+      "Apply syncopation to a familiar piece",
+    ],
+    theory: (i, t) =>
+      `Syncopation is what makes music groove. We connect ${t} to real playing on the ${i.name.toLowerCase()}: shifting accents off the beat, using 16th-note subdivisions, and locking in with a metronome or drummer.`,
+    steps: () => [
+      "Clap 16th notes at 60 BPM saying '1 e & a'",
+      "Accent the '&' and 'a' to feel syncopation",
+      "Play a simple line with syncopated rhythm",
+      "Loop with a metronome for 5 minutes",
+    ],
+    techniqueExercises: () => [
+      "Play a scale in straight 16ths, then swung",
+      "Alternate 8th- and 16th-note phrases",
+      "Play a familiar melody with a syncopated feel",
+    ],
+    practiceRoutine: () => "30 minutes: 10 min clapping, 15 min playing, 5 min metronome check.",
+    homework: () => "Find a groove-based song and clap the rhythm before you play it.",
+    tips: () => ["Metronome on beats 2 and 4", "Tap your foot on the downbeat", "Slow before fast"],
+    mistakes: () => ["Rushing the '&' and 'a'", "Ignoring the metronome when it gets hard", "Playing without counting"],
+    visual: "16th-note grid",
+    durationMin: 30,
+    difficulty: 3,
+  },
+  {
+    title: () => "Arpeggios across the range",
+    objectives: (i) => [
+      "Play major and minor arpeggios cleanly",
+      `Move arpeggios through the range of the ${i.name.toLowerCase()}`,
+      "Use arpeggios in a real musical phrase",
+    ],
+    theory: (i, t) =>
+      `An arpeggio is a chord played one note at a time. Paired with ${t}, arpeggios build hand strength and ear on the ${i.name.toLowerCase()} while sounding musical from day one.`,
+    steps: (i) => [
+      "Play a C major arpeggio (C-E-G-C) up and down",
+      "Repeat in A minor (A-C-E-A)",
+      `Extend across two octaves on the ${i.name.toLowerCase()}`,
+      "Use arpeggios inside a short melody",
+    ],
+    techniqueExercises: () => [
+      "Play arpeggios in eighth, then triplet, then 16th notes",
+      "Alternate arpeggio directions each bar",
+      "Play a slow ballad using only arpeggios",
+    ],
+    practiceRoutine: () => "30 minutes: 15 min arpeggio drills, 15 min applying them musically.",
+    homework: () => "Compose a short 8-bar phrase built entirely from arpeggios.",
+    tips: () => ["Keep tempo consistent", "Aim for an even tone on every note", "Practise both directions"],
+    mistakes: () => ["Speeding up going down", "Losing tone on the top notes", "Only ever playing the same arpeggio"],
+    visual: "Two-octave arpeggio map",
+    durationMin: 30,
+    difficulty: 3,
+  },
+  {
+    title: () => "Ear training and playing by ear",
+    objectives: () => [
+      "Recognise major and minor chords by ear",
+      "Sing back short melodies accurately",
+      "Play a simple melody by ear",
+    ],
+    theory: (i, t) =>
+      `A trained ear is the biggest shortcut in music. In this lesson we combine ${t} with daily ear-training drills and apply them on the ${i.name.toLowerCase()}. The goal is to move from 'reading' to 'hearing and playing'.`,
+    steps: (i) => [
+      "Listen to 5 chords and identify major vs minor",
+      "Sing back a 4-note melody",
+      `Find that melody on the ${i.name.toLowerCase()}`,
+      "Play a familiar tune from memory",
+    ],
+    techniqueExercises: () => [
+      "Do 10 minutes of interval identification daily",
+      "Match pitch with a piano/tuner",
+      "Transcribe a 4-bar phrase from a favourite song",
+    ],
+    practiceRoutine: () => "30 minutes: 10 min chord ID, 10 min melody dictation, 10 min play-by-ear.",
+    homework: () => "Learn the melody of one favourite song entirely by ear.",
+    tips: () => ["Use an ear-training app", "Sing before you play", "Little and often beats one long session"],
+    mistakes: () => ["Only ever reading music", "Guessing without listening first", "Skipping ear training on hard days"],
+    visual: "Interval reference chart",
+    durationMin: 30,
+    difficulty: 3,
+  },
+  {
+    title: () => "Playing with a metronome and a backing track",
+    objectives: () => [
+      "Stay locked with a metronome for a full song",
+      "Play with a backing track without rushing or dragging",
+      "Record and evaluate a full take",
+    ],
+    theory: (i, t) =>
+      `Great time is the number-one skill professionals share. Combined with ${t}, this lesson trains rock-solid timing on the ${i.name.toLowerCase()} using a metronome and a backing track — the two tools that separate hobby playing from performance-ready playing.`,
+    steps: () => [
+      "Play a scale with the metronome on beats 2 and 4",
+      "Play a song with a click track from start to finish",
+      "Play with a full backing track (drums + bass)",
+      "Record and listen back critically",
+    ],
+    techniqueExercises: () => [
+      "Turn the click off for one bar, back on for the next",
+      "Play at 60, 90, 120 BPM without changing feel",
+      "Record 3 takes, pick the best",
+    ],
+    practiceRoutine: () => "35 minutes: 10 min click drills, 15 min backing track, 10 min listen-back.",
+    homework: () => "Record a 60-second take with a backing track and share it with a friend for feedback.",
+    tips: () => ["Feel the pulse in your body", "Don't fight the click, ride it", "Consistent slow beats fast and messy"],
+    mistakes: () => ["Rushing at the end of phrases", "Turning off the metronome when it's uncomfortable", "Skipping recording — recording is truth"],
+    visual: "Metronome subdivision chart",
+    durationMin: 35,
+    difficulty: 4,
+  },
+  {
+    title: (i) => `Intermediate performance piece: ${i.intermediateSong}`,
+    objectives: (i) => [
+      `Play ${i.intermediateSong} start to finish`,
+      "Apply dynamics and phrasing",
+      "Record a clean full take",
+    ],
+    theory: (i, t) =>
+      `${i.intermediateSong} is your intermediate checkpoint piece. This lesson combines ${t} with a professional sectional-practice approach on the ${i.name.toLowerCase()}. You will learn to break a piece into sections, drill the hardest bars, and stitch the whole thing back together.`,
+    steps: (i) => [
+      `Break ${i.intermediateSong} into 4-8 sections`,
+      "Practise the hardest section first, slowly",
+      "Play each section 3 times cleanly before moving on",
+      "Play the whole piece top to bottom without stopping",
+    ],
+    techniqueExercises: () => [
+      "Play the piece at 70% tempo with a metronome",
+      "Sing the melody away from the instrument",
+      "Perform the piece for one person",
+    ],
+    practiceRoutine: () => "45 minutes: 10 min warm-up, 25 min sectional drills, 10 min full run-throughs.",
+    homework: () => "Record the piece end-to-end and note two things to improve next week.",
+    tips: () => ["Fix mistakes on the spot, don't restart", "Slow tempo, perfect notes", "Sleep is practice — brains consolidate at night"],
+    mistakes: () => ["Always playing from the top", "Skipping sections that feel awkward", "Only practising fast"],
+    visual: "Sectional practice map",
+    durationMin: 45,
+    difficulty: 4,
+  },
+  {
+    title: () => "Intermediate checkpoint & next steps",
+    objectives: () => [
+      "Review every skill from the intermediate level",
+      "Assess strengths and gaps honestly",
+      "Set a personal plan for the advanced level",
+    ],
+    theory: (i, t) =>
+      `This is your Intermediate checkpoint. We revisit ${t} and every technique built so far on the ${i.name.toLowerCase()}. You will play a short recital to yourself, mark what feels great and what still wobbles, and design a 4-week bridge into the Advanced level.`,
+    steps: (i) => [
+      "Play a 5-minute mini-recital of your favourite pieces",
+      `Play ${i.primaryScale} in 2 keys cleanly`,
+      "Improvise 60 seconds over a backing track",
+      "Write down 3 goals for the next 4 weeks",
+    ],
+    techniqueExercises: () => [
+      "Sight-read something new for 5 minutes",
+      "Perform for one real listener",
+      "Record your mini-recital and store the file",
+    ],
+    practiceRoutine: () => "45 minutes: warm-up, mini-recital, improvisation, planning.",
+    homework: () => "Write your personal 4-week plan for advancing to the next level.",
+    tips: () => ["Compare yourself to past-you", "Small daily reps beat huge weekend sessions", "Keep a practice journal"],
+    mistakes: () => ["Rushing into Advanced before Intermediate feels solid", "Practising only fun material", "Not performing regularly"],
+    visual: "Intermediate roadmap",
+    durationMin: 45,
+    difficulty: 4,
+  },
 ];
+
+
 
 const advancedTemplates: Template[] = [
   {
@@ -1047,7 +1330,7 @@ const advancedTemplates: Template[] = [
     tips: () => [
       "Consistency is key for mastering advanced techniques",
       "Seek out masterclasses or advanced workshops",
-      "Don\"t shy away from difficult repertoire; it\"s where you grow most",
+      "Don't shy away from difficult repertoire; it's where you grow most",
     ],
     mistakes: () => [
       "Overlooking fundamental techniques in pursuit of speed",
@@ -1137,349 +1420,386 @@ const advancedTemplates: Template[] = [
     difficulty: 5,
   },
   {
-    title: () => "Major scales in two octaves",
-    objectives: (i) => [
-      `Play ${i.primaryScale} in two octaves`,
-      "Play C, G, D and F major scales cleanly",
-      "Warm up with scales daily",
-    ],
-    theory: (i, t) =>
-      `At the intermediate level, scales stop being homework and start being your gateway to real music. In this lesson we practise ${i.primaryScale} across two octaves and introduce ${t}. Each scale is a small piece of music you can loop for warm-ups — it trains your fingers, your ears and your reading at once. Two-octave scales also open up the full range of the ${i.name.toLowerCase()} so you're comfortable in every register, not just the middle. We approach every scale with the same attention we bring to a performance piece: even tone, steady tempo, dynamic control. When your scales sound like music, everything else will too.`,
-    steps: (i) => [
-      "Look at the fingering for the full two-octave scale",
-      "Play it up slowly with a metronome at 60 BPM",
-      "Play it down at the same tempo",
-      "Repeat with 3 other keys (G, D and F major)",
-    ],
-    techniqueExercises: () => [
-      "Play each scale in a variety of rhythms (quarters, eighths, triplets)",
-      "Play each scale legato, then staccato",
-      "Play each scale with a crescendo up, decrescendo down",
-    ],
-    practiceRoutine: () =>
-      "30 minutes: 5 min warm-up, 20 min scales in 4 keys with metronome, 5 min free application (improvise using the scale you just practised).",
-    homework: () =>
-      "Play all 4 scales daily at 60 BPM for a week. On day 8, push to 80 BPM.",
-    tips: () => [
-      "Group scales by fingering family, not by name",
-      "Practice the descending direction first — it's usually weaker",
-      "Vary the tempo — 60, 80 and 100 BPM each session",
-    ],
-    mistakes: () => [
-      "Playing scales too fast for your current level",
-      "Practising only one key",
-      "Skipping rhythmic variations",
-    ],
-    visual: "Two-octave scale chart",
-    durationMin: 30,
-    difficulty: 3,
-  },
-  {
-    title: () => "The I–IV–V progression and simple chords",
+    title: () => "Advanced technique and daily warm-up routine",
     objectives: () => [
-      "Understand the I–IV–V progression in C, G and D",
-      "Recognise the progression in real songs",
-      "Play it with steady rhythm",
+      "Design a 20-minute technical warm-up",
+      "Refine speed, control and articulation",
+      "Track your top tempo weekly",
     ],
     theory: (i, t) =>
-      `The I–IV–V progression is the DNA of pop, gospel, blues and rock. In this lesson we pair the progression with ${t} so you understand exactly why these chords sound so good together. On the ${i.name.toLowerCase()} we'll play or outline the chords, feel the movement, and learn to hear it in songs you already love. Once you can hear a I–IV–V you'll never listen to music the same way again — you'll start recognising it in half the songs on the radio. This is the beginning of playing by ear, one of the most joyful skills a musician can develop.`,
+      `At the advanced level, technique is the tool that lets your ideas out. In this lesson we build a 20-minute daily warm-up for the ${i.name.toLowerCase()} that covers tone, scales, arpeggios and articulation. We link this with ${t} because advanced players never separate theory from practice. Your warm-up is a personal contract with your instrument — 20 minutes of undivided focus, every day, that keeps you sharp and lets you tackle any repertoire.`,
     steps: () => [
-      "Identify I, IV and V in C major (C, F, G)",
-      "Play or outline each chord for 4 beats",
-      "Do the same in G major (G, C, D)",
-      "Play along with a simple I–IV–V song",
+      "5 min long tones / tone production",
+      "5 min scales in 4 keys with a metronome",
+      "5 min arpeggios",
+      "5 min articulation drills at target tempo",
     ],
     techniqueExercises: () => [
-      "Play the progression at 60, 80 and 100 BPM with a metronome",
-      "Sing the root of each chord as it changes",
-      "Improvise a simple melody using scale tones over the progression",
+      "Track your top clean tempo for a technical passage — beat it weekly",
+      "Play scales in shifting rhythms (2s, 3s, 4s, 5s)",
+      "Play the warm-up with the metronome on 2 and 4",
     ],
     practiceRoutine: () =>
-      "30 minutes: 5 min warm-up, 15 min progression drills in 3 keys, 10 min playing along with real songs.",
+      "40 minutes: 20 min technical warm-up, 20 min repertoire.",
     homework: () =>
-      "Find 3 songs you know that use I–IV–V. Play along with each one.",
+      "Log your daily warm-up for 7 days. Compare your top clean tempo on day 1 and day 7.",
     tips: () => [
-      "Feel the pull from V back to I — it's the strongest movement in music",
-      "Practise the progression in the key of every scale you know",
-      "Play with recordings — matching pros beats matching a metronome",
+      "The warm-up is the practice — not a chore before it",
+      "Tempo growth comes from consistency, not intensity",
+      "Rest is part of practice — don't ignore recovery",
     ],
     mistakes: () => [
-      "Rushing the chord changes",
-      "Playing only in one key",
-      "Ignoring the rhythm of the chord changes",
+      "Skipping the warm-up 'just this once'",
+      "Practising fast to prove something",
+      "Ignoring the body's warning signs",
     ],
-    visual: "Chord progression wheel",
-    durationMin: 30,
-    difficulty: 3,
-  },
-  {
-    title: () => "Rhythm, syncopation and 16th notes",
-    objectives: () => [
-      "Play accurate 16th-note patterns",
-      "Understand syncopation",
-      "Groove with a drum track",
-    ],
-    theory: (i, t) =>
-      `Rhythm at the intermediate level is where music starts to groove. We introduce ${t} and pair it with the physical skill of playing 16th notes cleanly. Syncopation — accents on off-beats — is the secret ingredient in funk, gospel, Afrobeats and jazz. In this lesson we clap 16th note patterns first, then play them on the ${i.name.toLowerCase()}, and finally combine them into a syncopated groove. Locking a groove is a completely different feeling from playing in time — you can feel your body wanting to move. When your rhythm reaches this level, you're ready to play with other musicians.`,
-    steps: () => [
-      "Clap steady 16th notes (1-e-and-a, 2-e-and-a...) for 2 minutes",
-      "Play a simple 16th-note pattern with a metronome",
-      "Add an accent every 3 notes to create a syncopation",
-      "Play along with a drum groove",
-    ],
-    techniqueExercises: () => [
-      "Metronome on beats 2 and 4 only (backbeat) — play through it",
-      "Clap syncopation while tapping a steady quarter with your foot",
-      "Play the same pattern at 4 different tempos",
-    ],
-    practiceRoutine: () =>
-      "30 minutes: 5 min metronome subdivision practice, 15 min syncopation drills, 10 min playing along with drum tracks.",
-    homework: () =>
-      "Choose a groove-based song and count out loud where the syncopations happen.",
-    tips: () => [
-      "Move your body while you play — locks in groove",
-      "Practise with the metronome on 2 and 4 — closer to how a drummer feels time",
-      "Record yourself and listen — if it doesn't groove, adjust",
-    ],
-    mistakes: () => [
-      "Rushing when the pattern gets complex",
-      "Losing the pulse when the syncopation lands",
-      "Practising too fast before the pattern is clean",
-    ],
-    visual: "16th-note rhythm grid",
-    durationMin: 30,
+    visual: "Warm-up routine card",
+    durationMin: 40,
     difficulty: 4,
   },
   {
-    title: (i) => `${i.articulationTerm}`,
-    objectives: (i) => [
-      `Play ${i.articulationTerm} cleanly`,
-      "Choose the right articulation for a phrase",
-      "Add phrasing to a familiar piece",
+    title: () => "Ear training and transcription",
+    objectives: () => [
+      "Recognise all intervals within an octave",
+      "Transcribe a 4-bar melody by ear",
+      "Play what you hear without notation",
     ],
     theory: (i, t) =>
-      `Articulation is how you shape individual notes on the ${i.name.toLowerCase()}. It's what makes a melody sing (${i.articulationTerm}) instead of just stringing notes together. We tie this to ${t} so you can spot the markings in real sheet music. Great articulation is a huge part of how professional players sound different from beginners playing the same notes — same melody, totally different feel. In this lesson we'll drill each articulation cleanly, then apply it inside a musical context. Small changes here create large improvements in your overall sound.`,
-    steps: (i) => [
-      `Practise clean ${i.articulationTerm} on your first 5 notes`,
-      `Play ${i.primaryScale} using ${i.articulationTerm}`,
-      "Apply the articulation to a short phrase from a song",
-      "Record and compare with the un-articulated version",
-    ],
-    techniqueExercises: (i) => [
-      "Alternate between the two articulations every 2 beats",
-      "Play the same phrase 4 different ways",
-      `Practise ${i.articulationTerm} slowly, then at tempo`,
-    ],
-    practiceRoutine: () =>
-      "25 minutes: 5 min warm-up, 15 min articulation drills, 5 min applying to a song.",
-    homework: () =>
-      "Take a melody you know and play it entirely legato, then entirely staccato. Notice how differently it communicates.",
-    tips: () => [
-      "Articulation should serve the music, not show off",
-      "Match the articulation of great recordings",
-      "Slow practice locks in clean articulation",
-    ],
-    mistakes: () => [
-      "Playing all articulations the same way",
-      "Losing pitch or rhythm while focusing on articulation",
-      "Adding articulations that aren't in the music",
-    ],
-    visual: "Articulation markings",
-    durationMin: 25,
-    difficulty: 4,
-  },
-  {
-    title: () => "Pentatonic scales and improvising",
-    objectives: (i) => [
-      `Play the ${i.soloFriendly}`,
-      "Improvise for 30 seconds over a simple loop",
-      "Use call and response",
-    ],
-    theory: (i, t) =>
-      `The pentatonic scale is the perfect first improvisation scale — 5 notes, no wrong choices. On the ${i.name.toLowerCase()} we'll use the ${i.soloFriendly} to start making up our own music. We tie this to ${t} so you understand why the scale sounds so good. Improvising is a skill anyone can learn — it's a language, and like every language, you start with a small vocabulary and expand. In this lesson we introduce call and response: a phrase, then a reply. That single idea gives you a lifetime of improvisation ideas.`,
-    steps: (i) => [
-      `Learn the notes of the ${i.soloFriendly}`,
-      "Play it up and down",
-      "Improvise a 4-note 'question' phrase",
-      "Improvise a 4-note 'answer' phrase",
+      `Ear training frees you from the page. In this lesson we drill ${t} — specifically interval recognition — and apply it to transcribing a real 4-bar melody. On the ${i.name.toLowerCase()} you'll listen, sing back, then play. Repeat. This loop rewires your brain to match sound with fingerings without conscious effort. Advanced players hear a melody and can play it back within seconds — that's not a gift, it's a trained skill.`,
+    steps: () => [
+      "Listen to two notes; identify the interval",
+      "Sing the interval back",
+      "Play it on your instrument",
+      "Repeat with a 4-bar melody instead of intervals",
     ],
     techniqueExercises: () => [
-      "Improvise using only 3 notes for 60 seconds",
-      "Improvise using rhythm only (repeat one note)",
-      "Improvise a call, sing the response, then play it",
+      "5 min daily interval drill using any ear-training app",
+      "Transcribe one 4-bar phrase every day for a week",
+      "Sing the melody first, then play it",
     ],
     practiceRoutine: () =>
-      "30 minutes: 5 min warm-up with the scale, 15 min improvising over a chord loop, 10 min transcribing your best 4-bar idea.",
+      "30 minutes: 10 min interval drill, 15 min transcription, 5 min play-back-what-you-hear game.",
     homework: () =>
-      "Record a 60-second improvisation and listen back. Note one phrase you love — that's the start of your musical voice.",
+      "Transcribe the melody of a favourite song's chorus. Write it down and play it.",
     tips: () => [
-      "Fewer notes, more music",
-      "Leave space — silence is a note too",
-      "Improvise every day, even for 2 minutes",
+      "Sing first, always",
+      "Start small — 2 notes, 3 notes, then a phrase",
+      "Trust the ear — it will lead your fingers",
     ],
     mistakes: () => [
+      "Trying to transcribe entire songs before you can do 4 bars",
+      "Reaching for notation before really listening",
+      "Getting frustrated when it's slow — it's supposed to be at first",
+    ],
+    visual: "Interval reference table",
+    durationMin: 30,
+    difficulty: 5,
+  },
+  {
+    title: () => "7th chords and colour",
+    objectives: () => [
+      "Understand major 7, minor 7 and dominant 7 chords",
+      "Play or outline them on your instrument",
+      "Hear the difference between them",
+    ],
+    theory: (i, t) =>
+      `Seventh chords add colour and sophistication to any music. In this lesson we cover ${t} and apply it directly on the ${i.name.toLowerCase()}. A major 7 sounds dreamy, a minor 7 sounds smooth, a dominant 7 sounds bluesy and demanding of resolution. Once you can play and hear 7th chords, jazz, gospel and R&B suddenly make sense.`,
+    steps: () => [
+      "Play or arpeggiate Cmaj7 (C E G B)",
+      "Then Cm7 (C E♭ G B♭)",
+      "Then C7 (C E G B♭)",
+      "Alternate the three and listen to the colours",
+    ],
+    techniqueExercises: () => [
+      "Play each 7th chord in 4 different keys",
+      "Improvise short phrases over a static Cmaj7, then C7",
+      "Identify 7th chords in songs you love",
+    ],
+    practiceRoutine: () =>
+      "30 minutes: 10 min chord drills, 15 min improvising over a 7th chord loop, 5 min ear training on 7th chord quality.",
+    homework: () =>
+      "Find one song that uses maj7 and one that uses dominant 7. Sing along and feel the difference.",
+    tips: () => [
+      "The 7th of a chord is the most expressive note",
+      "Practise 7th chords in every key over time",
+      "Hear the chord colour first, then play the notes",
+    ],
+    mistakes: () => [
+      "Confusing dominant 7 with major 7",
+      "Only practising 7th chords in C",
+      "Ignoring how 7th chords resolve",
+    ],
+    visual: "7th chord chart",
+    durationMin: 30,
+    difficulty: 5,
+  },
+  {
+    title: () => "Modes of the major scale",
+    objectives: () => [
+      "Understand the 7 modes",
+      "Play Dorian and Mixolydian",
+      "Improvise using a mode",
+    ],
+    theory: (i, t) =>
+      `Modes are different flavours of the same set of notes. In this lesson we cover ${t} and drill the two most useful modes: Dorian (minor jazz/funk sound) and Mixolydian (dominant/blues sound). On the ${i.name.toLowerCase()} we'll play each mode over a matching chord to hear its character. Understanding modes is a huge upgrade — it opens up jazz, film scoring, gospel and modern pop.`,
+    steps: () => [
+      "Play a C major scale (Ionian mode)",
+      "Start from D and play the same notes up to D (Dorian)",
+      "Start from G and play the same notes up to G (Mixolydian)",
+      "Improvise for 60 seconds using Mixolydian over a G7 chord",
+    ],
+    techniqueExercises: () => [
+      "Play each mode in 2 keys",
+      "Improvise a 4-bar phrase using only Dorian",
+      "Identify the mode of a familiar song",
+    ],
+    practiceRoutine: () =>
+      "35 minutes: 10 min mode drills, 15 min improvisation over a chord loop, 10 min ear training with modes.",
+    homework: () =>
+      "Choose one mode and find 3 songs that use it. Play along.",
+    tips: () => [
+      "Start with Dorian and Mixolydian — most useful in modern music",
+      "Feel the mode's character — happy, sad, tense, bright",
+      "Improvise more than you drill",
+    ],
+    mistakes: () => [
+      "Trying to memorise all 7 modes at once",
+      "Playing modes without hearing them",
+      "Using modes as scales instead of colours",
+    ],
+    visual: "Modes wheel",
+    durationMin: 35,
+    difficulty: 5,
+  },
+  {
+    title: () => "Improvisation over changes",
+    objectives: () => [
+      "Improvise over a chord progression, not just one chord",
+      "Target chord tones on strong beats",
+      "Use motifs and repetition",
+    ],
+    theory: (i, t) =>
+      `Real improvisation isn't random — it follows the chord changes. In this lesson we pair ${t} with the physical practice of improvising over a I–vi–ii–V progression on the ${i.name.toLowerCase()}. The trick: target the 3rd of each chord on beat 1. That single rule elevates every solo. We'll also practise repeating and developing a motif, so your solos feel composed rather than aimless.`,
+    steps: () => [
+      "Learn a I–vi–ii–V progression in C (C, Am, Dm, G7)",
+      "Play the 3rd of each chord on beat 1 as a warm-up",
+      "Improvise using only chord tones for 60 seconds",
+      "Add scale tones and simple motifs",
+    ],
+    techniqueExercises: () => [
+      "Improvise using only 4 notes per chord",
+      "Repeat one motif with 3 rhythmic variations",
+      "Record and transcribe your best 4-bar phrase",
+    ],
+    practiceRoutine: () =>
+      "40 minutes: 10 min chord tone drills, 20 min improvising over changes, 10 min transcribing your best ideas.",
+    homework: () =>
+      "Record 3 different one-minute solos over the same progression. Compare — which felt best?",
+    tips: () => [
+      "Target the 3rd of every chord — instant sophistication",
+      "Motifs and repetition beat 100 random notes",
+      "Leave space — silence is a note",
+    ],
+    mistakes: () => [
+      "Ignoring the chord changes and playing one scale over everything",
       "Playing too many notes",
-      "Ignoring rhythm and only focusing on notes",
-      "Waiting until you 'know enough' to improvise",
+      "Never recording — you can't improve what you don't hear",
     ],
-    visual: "Pentatonic scale chart",
-    durationMin: 30,
-    difficulty: 4,
-  },
-  {
-    title: () => "Arpeggios and broken chords",
-    objectives: () => [
-      "Play major and minor arpeggios",
-      "Use arpeggios to outline chord progressions",
-      "Add them to your improvisation",
-    ],
-    theory: (i, t) =>
-      `Arpeggios are chords played one note at a time. They're the bridge between scales (which are melodic) and chords (which are harmonic). On the ${i.name.toLowerCase()} we practise C major and A minor arpeggios, then combine them into chord progressions. We link this with ${t} to understand chord construction. Arpeggios are the vocabulary of thousands of solos across every style. Once you can hear the shape of an arpeggio, you'll start recognising it in the music you listen to.`,
-    steps: () => [
-      "Play C major triad as an arpeggio (C E G C)",
-      "Play A minor triad as an arpeggio (A C E A)",
-      "Alternate the two",
-      "Improvise a 4-bar phrase using both",
-    ],
-    techniqueExercises: () => [
-      "Play each arpeggio at 60, 80 and 100 BPM",
-      "Play them in a variety of rhythms",
-      "Play them ascending and descending in one breath (or phrase)",
-    ],
-    practiceRoutine: () =>
-      "30 minutes: 5 min warm-up, 15 min arpeggio drills in multiple keys, 10 min improvising over a chord loop.",
-    homework: () =>
-      "Take a song you like and identify where the melody uses arpeggios. You'll be surprised how often it does.",
-    tips: () => [
-      "Arpeggios teach chord shapes even on melodic instruments",
-      "Vary rhythm and dynamics to make arpeggios musical",
-      "Use arpeggios to target chord tones on beat 1",
-    ],
-    mistakes: () => [
-      "Playing arpeggios mechanically without musicality",
-      "Only practising ascending arpeggios",
-      "Skipping arpeggios because they seem less important than scales",
-    ],
-    visual: "Arpeggio patterns",
-    durationMin: 25,
-    difficulty: 4,
-  },
-  {
-    title: () => "Playing with dynamics and phrasing",
-    objectives: () => [
-      "Shape a musical phrase with intention",
-      "Use dynamics to add emotion",
-      "Perform with expression",
-    ],
-    theory: (i, t) =>
-      `Phrasing is what turns notes into stories. Every phrase has a shape — a beginning, a peak and an ending. We combine phrasing with ${t} so you can read expression markings and turn them into real musical decisions. On the ${i.name.toLowerCase()}, small changes in dynamics and pacing create huge changes in how the audience feels. In this lesson we take one melody and play it four ways: neutral, dramatic, tender and joyful. Same notes, four completely different messages. This is the difference between playing correctly and playing musically.`,
-    steps: () => [
-      "Take a familiar melody and play it 'flat' (no dynamics)",
-      "Identify the peak of each phrase",
-      "Play the melody again with a shape — crescendo to the peak",
-      "Play with rubato — subtle tempo flex around the peak",
-    ],
-    techniqueExercises: () => [
-      "Sing the phrase first, then play it",
-      "Play the phrase 4 different ways in a row",
-      "Match the phrasing of a great recording note-for-note",
-    ],
-    practiceRoutine: () =>
-      "30 minutes: 5 min warm-up, 20 min phrasing experiments, 5 min recording a favourite version.",
-    homework: () =>
-      "Choose a slow song. Sing it, then play it with the same phrasing you sang. This transfers vocal intuition to your instrument.",
-    tips: () => [
-      "Breathe with the phrase, even on non-wind instruments",
-      "Copy the phrasing of your favourite singers",
-      "Listen back — feels big might sound small",
-    ],
-    mistakes: () => [
-      "Playing every phrase the same way",
-      "Ignoring what the words (or lack of them) suggest",
-      "Overdoing dynamics until they feel fake",
-    ],
-    visual: "Phrasing diagram",
-    durationMin: 25,
-    difficulty: 4,
-  },
-  {
-    title: () => "Playing with others: locking in",
-    objectives: (i) => [
-      `Play in time with a recording`,
-      `Communicate ${i.ensembleContext}`,
-      "Recover quickly if you slip",
-    ],
-    theory: (i, t) =>
-      `Playing alone is one skill. Playing ${i.ensembleContext} is a completely different skill — and often more fun. We combine ${t} with real-world musical listening. On the ${i.name.toLowerCase()} we practise fitting our sound into a larger picture: playing at the right volume, coming in at the right moment, and recovering gracefully when something goes wrong. This is the skill that gets you invited to play in bands, at church, at open mics and in studios.`,
-    steps: (i) => [
-      `Play along with a full recording of a ${i.intermediateSong.replace(/^'|'$/g, "")}`,
-      "Listen more than you play",
-      "Match the tempo, dynamics and phrasing of the recording",
-      "Practise starting mid-song if you get lost",
-    ],
-    techniqueExercises: () => [
-      "Play a song and drop out for 4 bars, then come back in perfectly",
-      "Play at half your normal volume for a whole song",
-      "Play with the drums only (mute other tracks)",
-    ],
-    practiceRoutine: () =>
-      "30 minutes: 5 min warm-up, 20 min playing along with 3 different recordings, 5 min journaling what you learned.",
-    homework: () =>
-      "Find a jam night, a friend or a worship team and play with real people, even for 15 minutes.",
-    tips: () => [
-      "Always listen before you play louder",
-      "If you lose your place, mute yourself and find beat 1",
-      "Confidence matters more than perfect notes",
-    ],
-    mistakes: () => [
-      "Playing louder to cover mistakes",
-      "Stopping to restart when you slip",
-      "Not listening to the other musicians",
-    ],
-    visual: "Ensemble layout",
-    durationMin: 30,
-    difficulty: 4,
-  },
-  {
-    title: (i) => `Perform a full piece: ${i.intermediateSong}`,
-    objectives: (i) => [
-      `Play ${i.intermediateSong} start to finish`,
-      "Combine everything you've learned this level",
-      "Record a full performance take",
-    ],
-    theory: (i, t) =>
-      `${i.intermediateSong} is your intermediate milestone. It brings together scales, chords, timing, articulation and phrasing. We tie this to ${t} so you can analyse the piece as you play it. Real performers don't just play — they interpret. Take this piece and make it yours: your own dynamics, your own phrasing, your own emotional emphasis. A full performance takes courage. It exposes your habits, good and bad. Embrace it — this is how you grow the fastest.`,
-    steps: (i) => [
-      `Read through ${i.intermediateSong} away from the ${i.name.toLowerCase()}`,
-      "Break it into 4 sections and drill each slowly",
-      "Play at 70% tempo end-to-end",
-      "Record a full performance take at full tempo",
-    ],
-    techniqueExercises: () => [
-      "Identify the 3 hardest bars and drill them 10 times each",
-      "Play the piece backwards, one bar at a time",
-      "Play the piece with a metronome, then without",
-    ],
-    practiceRoutine: () =>
-      "40 minutes: 10 min warm-up + scales, 20 min sectional drills, 10 min full performance takes.",
-    homework: () =>
-      "Perform the piece for one person this week. Even a family member counts. Deadlines drive improvement.",
-    tips: () => [
-      "Slow practice is the shortcut",
-      "Perform the piece before you feel 'ready' — that feeling never comes",
-      "Every performance teaches you something a rehearsal can't",
-    ],
-    mistakes: () => [
-      "Only practising the whole piece top-to-bottom",
-      "Fixing mistakes only when they happen — anticipate them",
-      "Skipping the recording step",
-    ],
-    visual: "Full performance score",
+    visual: "Chord tones diagram",
     durationMin: 40,
     difficulty: 5,
   },
+  {
+    title: () => "Advanced rhythm: polyrhythms and odd meters",
+    objectives: () => [
+      "Play in 5/4 and 7/8",
+      "Feel a 3-over-2 polyrhythm",
+      "Groove in odd meters",
+    ],
+    theory: (i, t) =>
+      `Once you're comfortable in 4/4, odd meters (5/4, 7/8) and polyrhythms (3-over-2) unlock a huge world of music — from progressive rock to Afrobeat to modern jazz. In this lesson we cover ${t} and drill the physical feel on the ${i.name.toLowerCase()}. Odd meters aren't harder — they're just different, and the feel comes fast once you count them consistently.`,
+    steps: () => [
+      "Clap 5 as 3+2 for 2 minutes",
+      "Play a simple riff in 5/4 with a metronome",
+      "Clap 7 as 4+3 for 2 minutes",
+      "Try a 3-over-2 polyrhythm (clap 3 with one hand, tap 2 with the other)",
+    ],
+    techniqueExercises: () => [
+      "Play a familiar 4/4 melody transposed to 5/4",
+      "Groove for 60 seconds in 7/8 without losing the pulse",
+      "Practice polyrhythms with a metronome",
+    ],
+    practiceRoutine: () =>
+      "30 minutes: 10 min counting drills, 15 min playing in odd meters, 5 min polyrhythm drills.",
+    homework: () =>
+      "Find a song in 5/4 or 7/8 (start with Take Five in 5/4). Count along.",
+    tips: () => [
+      "Sub-divide odd meters into small groups (3+2, 4+3)",
+      "Move your body to the pulse — helps the feel",
+      "Don't rush — clean counting first, tempo later",
+    ],
+    mistakes: () => [
+      "Treating 5/4 as 4/4 with an extra beat",
+      "Losing the pulse when the pattern gets complex",
+      "Skipping polyrhythms because they feel weird at first",
+    ],
+    visual: "Odd meter grouping",
+    durationMin: 30,
+    difficulty: 5,
+  },
+  {
+    title: () => "Studio and recording basics",
+    objectives: () => [
+      "Understand microphone placement",
+      "Record a clean take at home",
+      "Deliver a professional performance in one pass",
+    ],
+    theory: (i, t) =>
+      `Modern musicians are also modern recordists. In this lesson we pair ${t} with the essentials of recording the ${i.name.toLowerCase()}: mic choice, mic placement, gain staging and headroom. Recording exposes every detail — every squeak, every hesitation. That's a gift: it makes you better. We'll finish by recording a clean take of a short piece and evaluating it professionally.`,
+    steps: () => [
+      "Set up a mic 6-12 inches from the sound source",
+      "Set gain so peaks hit around -12 dBFS",
+      "Record a full take, no punch-ins",
+      "Listen back and note 3 things to improve",
+    ],
+    techniqueExercises: () => [
+      "Record the same phrase 5 times, pick the best",
+      "Practise starting cold — pros do it every day",
+      "Record with headphones on so you hear yourself as the mic hears you",
+    ],
+    practiceRoutine: () =>
+      "40 minutes: 10 min setup + mic placement, 25 min recording takes, 5 min listen-back notes.",
+    homework: () =>
+      "Publish (or share with one person) a recording of your favourite passage. Getting feedback is the whole point.",
+    tips: () => [
+      "Warm up before hitting record",
+      "Play through mistakes — comping fixes small ones",
+      "Compare your recording to reference tracks in the same style",
+    ],
+    mistakes: () => [
+      "Clipping the input by setting gain too hot",
+      "Punching in every tiny mistake instead of committing",
+      "Never sharing recordings — feedback is fuel",
+    ],
+    visual: "Studio signal path",
+    durationMin: 40,
+    difficulty: 5,
+  },
+  {
+    title: () => "Composition: writing your own music",
+    objectives: () => [
+      "Write an 8-bar melody",
+      "Harmonise it with basic chords",
+      "Perform it end to end",
+    ],
+    theory: (i, t) =>
+      `Composition takes everything you know and turns it into something entirely yours. In this lesson we cover ${t} and use it to write an 8-bar melody on the ${i.name.toLowerCase()}. There is no 'right' answer here — only choices. We'll teach a simple structure (question / answer, or AA') so you have a scaffold to fill in. Even a short original melody is a huge milestone — you've moved from consumer to creator.`,
+    steps: () => [
+      "Choose a key and a 4-chord progression",
+      "Improvise until a melodic idea catches your ear",
+      "Write it down",
+      "Play it back and refine",
+    ],
+    techniqueExercises: () => [
+      "Compose one 4-bar phrase per day for a week",
+      "Take a phrase and repeat it a step higher",
+      "Write a variation of an existing melody",
+    ],
+    practiceRoutine: () =>
+      "40 minutes: 10 min improvising, 20 min writing + notating, 10 min performing/refining.",
+    homework: () =>
+      "Write and record a 30-second original piece. Give it a title.",
+    tips: () => [
+      "Steal a rhythm from a song you love — then change the notes",
+      "Set a timer — creativity thrives under constraints",
+      "Perform your composition for someone",
+    ],
+    mistakes: () => [
+      "Waiting for inspiration",
+      "Editing before you have material",
+      "Composing without ever playing what you wrote",
+    ],
+    visual: "Composition template",
+    durationMin: 40,
+    difficulty: 5,
+  },
+  {
+    title: (i) => `Recital piece: ${i.advancedSong}`,
+    objectives: (i) => [
+      `Play ${i.advancedSong} at performance level`,
+      "Prepare mentally for performance",
+      "Record a professional take",
+    ],
+    theory: (i, t) =>
+      `${i.advancedSong} is your final recital piece. We combine ${t} with a professional preparation routine. On the ${i.name.toLowerCase()}, this is the piece you'll play when someone says 'play me something'. Prepare it like a professional: sectional practice, slow tempo drills, mental run-throughs, dress rehearsals. This piece is a portrait of who you are as a musician right now.`,
+    steps: (i) => [
+      `Break ${i.advancedSong} into 4-8 sections`,
+      "Drill each section at 50%, 75% and 100% tempo",
+      "Run the whole piece daily without stopping",
+      "Do a mental run-through away from the ${i.name.toLowerCase()}",
+    ],
+    techniqueExercises: () => [
+      "Play the piece under 3 simulated pressures (record, audience, video)",
+      "Play it with the metronome, then without, and match",
+      "Play the piece one octave lower/higher (or transposed)",
+    ],
+    practiceRoutine: () =>
+      "60 minutes: 15 min warm-up + scales, 30 min sectional + full run-throughs, 15 min performance simulations.",
+    homework: () =>
+      "Perform it live for at least 3 people. Book the date this week.",
+    tips: () => [
+      "Nerves are excitement — reframe, don't fight",
+      "Play it perfectly at slow tempo before pushing speed",
+      "Video yourself in performance mode — the truth is on the screen",
+    ],
+    mistakes: () => [
+      "Practising more speed than accuracy",
+      "Skipping mental run-throughs",
+      "Not performing enough before the big day",
+    ],
+    visual: "Recital program",
+    durationMin: 60,
+    difficulty: 5,
+  },
+  {
+    title: () => "Level checkpoint and next steps",
+    objectives: () => [
+      "Review every skill from the advanced level",
+      "Perform a mini-recital",
+      "Design your ongoing musical journey",
+    ],
+    theory: (i, t) =>
+      `This is your Advanced checkpoint. We revisit ${t} in context and celebrate everything you've built on the ${i.name.toLowerCase()}. Advanced doesn't mean 'finished' — it means you now have the tools to keep growing on your own for the rest of your life. In this lesson we design your next 6-month plan: repertoire, technique goals, performance schedule and any collaboration.`,
+    steps: (i) => [
+      "Run the full recital piece one more time",
+      `Play ${i.primaryScale} in 4 keys cleanly`,
+      "Improvise over a chord loop with confidence",
+      "Sketch your next 6-month plan",
+    ],
+    techniqueExercises: () => [
+      "Sight-read a piece you've never seen",
+      "Perform for a real audience this month",
+      "Record a full session and share it",
+    ],
+    practiceRoutine: () =>
+      "60 minutes: warm-up, recital run, improvisation, planning.",
+    homework: () =>
+      "Write your 6-month plan and share it with someone who will hold you to it.",
+    tips: () => [
+      "Advanced is a stage, not a summit",
+      "Play with better musicians whenever possible",
+      "Keep a practice journal for the rest of your musical life",
+    ],
+    mistakes: () => [
+      "Treating 'advanced' as a finish line",
+      "Stopping performances after finishing the course",
+      "Comparing yourself to others instead of past-you",
+    ],
+    visual: "Advanced roadmap",
+    durationMin: 45,
+    difficulty: 5,
+  },
 ];
-
 
 const TEMPLATES: Record<Level, Template[]> = {
   beginner: beginnerTemplates,
@@ -1521,5 +1841,11 @@ export function getModules(instrumentName: string, level: Level) {
   return buildLessons(inst, level);
 }
 
-export const LESSONS_PER_LEVEL = 3;
-export const TOTAL_LESSONS_PER_INSTRUMENT = LESSONS_PER_LEVEL * levels.length;
+export const LESSONS_PER_LEVEL: Record<Level, number> = {
+  beginner: beginnerTemplates.length,
+  intermediate: intermediateTemplates.length,
+  advanced: advancedTemplates.length,
+};
+export const TOTAL_LESSONS_PER_INSTRUMENT =
+  LESSONS_PER_LEVEL.beginner + LESSONS_PER_LEVEL.intermediate + LESSONS_PER_LEVEL.advanced;
+
