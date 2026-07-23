@@ -481,9 +481,22 @@ function LessonPage() {
                 onPassed={(pct) => onQuizPassed(activeLesson.id, pct)}
               />
 
+              <div className="rounded-2xl border border-brand/30 bg-brand-soft/40 p-6 text-center">
+                <h3 className="font-display text-lg font-semibold">Want more personalised lessons?</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Reach out to Nhlamulo Fani Sibuyi for private 1-on-1 lessons that go beyond this course.
+                </p>
+                <div className="mt-3 flex flex-wrap justify-center gap-3 text-sm">
+                  <a href="tel:+27608414467" className="font-medium text-brand hover:underline">060 841 4467</a>
+                  <span className="text-muted-foreground">·</span>
+                  <a href="mailto:nhlamulofani@gmail.com" className="font-medium text-brand hover:underline">nhlamulofani@gmail.com</a>
+                </div>
+              </div>
+
               <p className="text-center text-xs text-muted-foreground">
-                {LESSONS_PER_LEVEL} lessons per level · sequential unlock · progress saved to your account.
+                {LESSONS_PER_LEVEL[level]} lessons in this level · sequential unlock · progress saved to your account.
               </p>
+
             </div>
           )}
         </div>
