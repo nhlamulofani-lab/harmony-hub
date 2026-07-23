@@ -108,7 +108,7 @@ function Dashboard() {
 
       {/* Stat cards */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <StatCard icon={CheckCircle2} label="Lessons complete" value={String(lessonsDone)} sub={`of ${instruments.length * levels.length * LESSONS_PER_LEVEL}`} />
+        <StatCard icon={CheckCircle2} label="Lessons complete" value={String(lessonsDone)} sub={`of ${totalLessonsAll}`} />
         <StatCard icon={GraduationCap} label="Overall Progress" value={`${overallPct}%`} />
       </div>
 
