@@ -29,17 +29,14 @@ function Dashboard() {
     if (!user) return;
     let cancelled = false;
     const load = async () => {
-      const [progRes, sessRes, quizRes, profRes] = await Promise.all([
+      const [progRes, profRes] = await Promise.all([
         supabase.from("lesson_progress").select("instrument_slug, level, module_id, completed_at").eq("user_id", user.id),
-
-
         supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
       ]);
       if (cancelled) return;
       setProgress((progRes.data ?? []) as ProgressRow[]);
-
-
       if (profRes.data?.full_name) setProfileName(profRes.data.full_name);
+
     };
     load();
     const ch = supabase
